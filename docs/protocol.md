@@ -1,6 +1,6 @@
 # AK820 Pro interoperability notes
 
-Keyboard Studio was developed from offline USB analysis and operator-labelled experiments with the vendor configurator. The app's Rust source and drawings are original. These notes describe observed behavior and inference; no original Windows executable or UI assets are distributed.
+Nix820 Pro was developed from offline USB analysis and operator-labelled experiments with the vendor configurator. The app's Rust source and drawings are original. These notes describe observed behavior and inference; no original Windows executable or UI assets are distributed.
 
 ## Transport
 

@@ -157,7 +157,7 @@ impl Studio {
                 r.min + vec2(87., 119.),
                 format!("Preset {} : {}", i + 1, count),
                 14.,
-                FG,
+                if i == self.preset_index { INK } else { FG },
                 Align2::CENTER_CENTER,
             );
             if c.hit(ui, r.intersect(preset_area), ("preset", i)).clicked() {

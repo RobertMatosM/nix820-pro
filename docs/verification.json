@@ -1,14 +1,16 @@
 {
-  "rust_tests": 44,
+  "rust_tests": 51,
   "python_tests": 19,
   "clippy": "cargo clippy --locked --all-targets -- -D warnings: passed",
   "release_build": "passed; Linux x86_64, optimized, stripped, ThinLTO",
-  "binary_bytes": 10676936,
-  "archive_bytes": 4510624,
+  "binary_bytes": 10672600,
+  "archive_bytes": 4512835,
   "archive_contents": "verified; no raw captures, private settings or development outputs",
-  "migration": "Real prototype profiles/presets/legacy binary copied into temporary XDG directories byte-for-byte; originals unchanged",
-  "native_gui": "Not verified: Wayland NoCompositor in sandbox. Headless UI tests pass.",
-  "hardware_writes": "None during refactoring or tests",
+  "migration": "51-test suite includes automatic migration from split Keyboard Studio XDG directories, idempotency, newer destination preservation, pre-copy validation, and existing prototype migration tests. Complete files published atomically without overwriting destinations.",
+  "native_gui": "All five sections captured and visually reviewed outside the sandbox in deterministic screenshot mode. Final contrast/RGB fixes included. No user data loaded/saved.",
+  "hardware_writes": "None during rename, theme changes, tests or screenshot capture",
   "original_workspace": "Prototype code and private data retained",
-  "license": "0BSD for original project; third-party notices separate"
+  "license": "0BSD for original project; third-party notices separate",
+  "project": "Nix820 Pro",
+  "saved_data": "Malformed/unreadable saved files stop startup without overwriting originals. Regression tests cover corrupted profiles, presets and legacy files; concurrent saves publish complete JSON with private staging files and no staging-file leaks."
 }

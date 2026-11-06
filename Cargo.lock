@@ -1025,17 +1025,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "keyboard-studio"
-version = "0.1.0"
-dependencies = [
- "eframe",
- "image",
- "serde",
- "serde_json",
- "weezl",
-]
-
-[[package]]
 name = "khronos_api"
 version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1236,6 +1225,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ee6cda3051665f1fb8d9e08fc35c96d5a244fb1be711a03b71118828afc9a873"
 dependencies = [
  "jni-sys 0.3.1",
+]
+
+[[package]]
+name = "nix820-pro"
+version = "0.1.0"
+dependencies = [
+ "eframe",
+ "image",
+ "serde",
+ "serde_json",
+ "weezl",
 ]
 
 [[package]]

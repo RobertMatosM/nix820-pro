@@ -3,8 +3,8 @@ use super::*;
 impl Studio {
     pub(super) fn keyboard(&mut self, ui: &mut Ui, c: &Canvas) {
         let case = Rect::from_min_size(pos2(466., 153.), vec2(648., 269.));
-        c.fill(case, 10., Color32::from_rgb(21, 34, 47));
-        c.outline(case, 10., Color32::from_rgb(50, 69, 87), 1.);
+        c.fill(case, 10., SURFACE);
+        c.outline(case, 10., BORDER, 1.);
         let mut keys: Vec<(String, f32, f32, f32)> = vec![];
         let row0 = [
             "Esc", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "Del",
@@ -114,24 +114,36 @@ impl Studio {
             let r = Rect::from_min_size(pos2(x, y), vec2(w, 36.));
             let is_sel = self.key.as_ref() == Some(&name) && self.page == 1;
             let top = r.shrink(1.5);
-            c.fill(
-                top,
-                4.,
-                if is_sel {
-                    Color32::from_rgb(29, 91, 89)
-                } else {
-                    Color32::from_rgb(31, 47, 63)
-                },
-            );
+            let dark = [
+                "Tab", "Caps", "Shift", "Shift R", "Ctrl", "Win", "Alt", "Alt R", "Fn", "Ctrl R",
+                "F5", "F6", "F7", "F8",
+            ]
+            .contains(&name.as_str());
+            let yellow = ["Esc", "Enter", "Space"].contains(&name.as_str());
+            let fill = if self.page == 3 {
+                SURFACE
+            } else if is_sel {
+                SELECTION
+            } else if yellow {
+                ACCENT
+            } else if dark {
+                KEY_DARK
+            } else {
+                KEY_LIGHT
+            };
+            let ink = if self.page == 3 {
+                label_col
+            } else if is_sel || dark {
+                FG
+            } else {
+                INK
+            };
+            c.fill(top, 4., fill);
             c.outline(
                 top,
                 4.,
-                if is_sel {
-                    ACCENT
-                } else {
-                    Color32::from_rgb(63, 83, 103)
-                },
-                1.,
+                if is_sel { ACCENT } else { BORDER },
+                if is_sel { 3. } else { 1. },
             );
             let label_col = if self.page == 3 && self.screenshot.is_none() && self.p().mode != 19 {
                 let phase = self.started.elapsed().as_secs_f32() * self.p().speed * 0.6;
@@ -156,7 +168,7 @@ impl Studio {
             } else {
                 label_col
             };
-            let key_color = label_col;
+            let key_color = if self.page == 3 { label_col } else { ink };
             let assignment = (self.page == 1)
                 .then(|| self.p().key_label(&name, self.layer))
                 .flatten();
@@ -181,7 +193,7 @@ impl Studio {
                 top.center(),
                 label,
                 if label.len() > 8 { 7.5 } else { 10. },
-                if is_sel { Color32::WHITE } else { key_color },
+                key_color,
                 Align2::CENTER_CENTER,
             );
             if self.page == 1 {

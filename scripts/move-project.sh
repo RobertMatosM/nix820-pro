@@ -3,7 +3,7 @@
 set -euo pipefail
 : "${HOME:?HOME must be set}"
 project_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-destination="${1:-$HOME/Documents/Projects/rust/keyboard-studio}"
+destination="${1:-$HOME/Documents/Projects/rust/nix820-pro}"
 if [[ "$project_dir" == "$destination" ]]; then
     printf '%s\n' "Project is already at $destination"
     exit 0

@@ -42,7 +42,7 @@ impl eframe::App for Studio {
                 c.fill(
                     Rect::from_min_size(Pos2::ZERO, vec2(204., 800.)),
                     0.,
-                    Color32::from_rgb(20, 31, 43),
+                    SIDEBAR,
                 );
                 for i in 0..3 {
                     c.fill(
@@ -54,13 +54,7 @@ impl eframe::App for Studio {
                         ACCENT,
                     );
                 }
-                c.text(
-                    pos2(61., 31.),
-                    "Keyboard Studio",
-                    17.,
-                    FG,
-                    Align2::LEFT_CENTER,
-                );
+                c.text(pos2(61., 31.), "Nix820 Pro", 17., FG, Align2::LEFT_CENTER);
                 c.text(
                     pos2(226., 31.),
                     SECTIONS
@@ -91,12 +85,7 @@ impl eframe::App for Studio {
                     self.scan();
                     self.hardware_open = true;
                 }
-                c.line(
-                    pos2(204., 58.),
-                    pos2(1480., 58.),
-                    Color32::from_rgb(41, 58, 74),
-                    1.,
-                );
+                c.line(pos2(204., 58.), pos2(1480., 58.), BORDER, 1.);
                 self.sidebar(ui, &c);
                 let mut painter = c.p.clone();
                 painter.set_opacity(eased);
@@ -123,7 +112,7 @@ impl eframe::App for Studio {
                     && time.elapsed().as_secs() < 6
                 {
                     let r = Rect::from_min_size(pos2(480., 714.), vec2(945., 40.));
-                    c.fill(r, 6., Color32::from_rgb(29, 65, 65));
+                    c.fill(r, 6., SELECTION);
                     c.text(r.center(), message, 12., FG, Align2::CENTER_CENTER);
                 }
             });
@@ -274,8 +263,8 @@ impl Studio {
         if !self.about_open {
             return;
         }
-        Window::new("About Keyboard Studio").open(&mut self.about_open).resizable(false).show(ctx,|ui| {
-            ui.heading("Keyboard Studio");
+        Window::new("About Nix820 Pro").open(&mut self.about_open).resizable(false).show(ctx,|ui| {
+            ui.heading("Nix820 Pro");
             ui.label("Independent AK820 Pro configurator for Linux.");
             ui.label("Not affiliated with or endorsed by AJAZZ. AJAZZ and AK820 Pro identify the supported device.");
             ui.separator();

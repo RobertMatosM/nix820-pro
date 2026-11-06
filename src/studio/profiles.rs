@@ -51,7 +51,7 @@ impl Studio {
             let y = 107. + i as f32 * 32.;
             let r = Rect::from_min_size(pos2(66., y - 16.), vec2(239., 32.));
             if i == self.saved.selected {
-                c.fill(r, 14., ACCENT)
+                c.fill(r, 5., SELECTION)
             }
             c.p.circle_stroke(c.pos(89., y), 10. * c.s, Stroke::new(2. * c.s, FG));
             if i == self.saved.selected {

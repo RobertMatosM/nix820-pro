@@ -56,15 +56,26 @@ impl Studio {
         let left = self.frame_index as f32 * 205.;
         self.thumb_offset = self.thumb_offset.clamp((left + 240. - 684.).max(0.), left);
     }
-    pub(super) fn load_screens(&mut self) {
-        if let Ok(bytes) = std::fs::read(self.paths.data.join("screen-presets.json"))
-            && let Ok((index, presets)) =
-                serde_json::from_slice::<(usize, Vec<model::ScreenPreset>)>(&bytes)
-            && !presets.is_empty()
-            && presets.len() <= 32
-            && index < presets.len()
-            && presets.iter().all(model::ScreenPreset::valid)
-        {
+    pub(super) fn load_screens(&mut self) -> Result<(), String> {
+        let path = self.paths.data.join("screen-presets.json");
+        if let Some(bytes) = crate::paths::read_optional(&path)? {
+            let (index, presets): (usize, Vec<model::ScreenPreset>) =
+                serde_json::from_slice(&bytes).map_err(|error| {
+                    format!(
+                        "Invalid display presets in {}: {error}. The file was left untouched.",
+                        path.display()
+                    )
+                })?;
+            if presets.is_empty()
+                || presets.len() > 32
+                || index >= presets.len()
+                || !presets.iter().all(model::ScreenPreset::valid)
+            {
+                return Err(format!(
+                    "Invalid display presets in {}. The file was left untouched.",
+                    path.display()
+                ));
+            }
             self.presets = presets;
             self.preset_index = index;
             let preset = &self.presets[index];
@@ -72,41 +83,46 @@ impl Studio {
             self.delays = preset.delays.clone();
             self.frame_index = preset.selected;
             self.delay = self.delays[self.frame_index];
-            return;
+            return Ok(());
         }
-        if let Ok(bytes) = std::fs::read(self.paths.data.join("screen-project.bin"))
-            && bytes.len() >= 8
-            && &bytes[..4] == b"KSC1"
-        {
-            let count = usize::from(u16::from_le_bytes([bytes[4], bytes[5]]));
-            if (1..=140).contains(&count) && bytes.len() == 8 + count * 160 * 128 * 4 {
-                self.pixels = bytes[8..]
-                    .as_chunks::<{ 160 * 128 * 4 }>()
-                    .0
-                    .iter()
-                    .map(|frame| frame.to_vec())
-                    .collect();
-                self.delay = u32::from(u16::from_le_bytes([bytes[6], bytes[7]])).max(10);
-                self.delays = vec![self.delay; count];
+        let path = self.paths.data.join("screen-project.bin");
+        if let Some(bytes) = crate::paths::read_optional(&path)? {
+            if bytes.len() < 8 || &bytes[..4] != b"KSC1" {
+                return Err(format!(
+                    "Invalid legacy display project {}. The file was left untouched.",
+                    path.display()
+                ));
             }
+            let count = usize::from(u16::from_le_bytes([bytes[4], bytes[5]]));
+            if !(1..=140).contains(&count) || bytes.len() != 8 + count * 160 * 128 * 4 {
+                return Err(format!(
+                    "Invalid legacy display frames in {}. The file was left untouched.",
+                    path.display()
+                ));
+            }
+            self.pixels = bytes[8..]
+                .as_chunks::<{ 160 * 128 * 4 }>()
+                .0
+                .iter()
+                .map(|frame| frame.to_vec())
+                .collect();
+            self.delay = u32::from(u16::from_le_bytes([bytes[6], bytes[7]])).max(10);
+            self.delays = vec![self.delay; count];
         }
         self.remember_screen();
+        Ok(())
     }
 }
 impl Drop for Studio {
     fn drop(&mut self) {
-        if self.screenshot.is_some() {
+        if self.screenshot.is_some() || !self.persistence_ready {
             return;
         }
         self.remember_screen();
         let result = serde_json::to_vec(&(self.preset_index, &self.presets))
             .map_err(|e| e.to_string())
             .and_then(|data| {
-                std::fs::create_dir_all(&self.paths.data).map_err(|e| e.to_string())?;
-                let temp = self.paths.data.join("screen-presets.tmp");
-                std::fs::write(&temp, data).map_err(|e| e.to_string())?;
-                std::fs::rename(temp, self.paths.data.clone().join("screen-presets.json"))
-                    .map_err(|e| e.to_string())
+                crate::paths::write_atomic(&self.paths.data.join("screen-presets.json"), &data)
             });
         if let Err(e) = result {
             eprintln!("Could not save screen presets: {e}");

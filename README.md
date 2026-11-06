@@ -1,8 +1,8 @@
-# Keyboard Studio
+# Nix820 Pro
 
 Independent AK820 Pro configurator for Linux, using wired USB. Written in Rust with egui/eframe. Not affiliated with or endorsed by AJAZZ; AJAZZ and AK820 Pro identify the supported keyboard.
 
-Keyboard Studio is a working project name. This version has its own flat keyboard illustration, teal interface, text navigation and searchable action picker. It contains no manufacturer screenshots, logos or cropped product artwork.
+Nix820 Pro has its own flat keyboard illustration, Starry Grey charcoal/gray/yellow interface, text navigation and searchable action picker. It works on Linux generally and does not require Nix or NixOS. It contains no manufacturer screenshots, logos or cropped product artwork.
 
 ## Supported features
 
@@ -23,7 +23,7 @@ Use a recent stable Rust toolchain and Python 3 for capture tooling. The support
 
 ```sh
 cargo build --release --locked
-./target/release/keyboard-studio
+./target/release/nix820-pro
 ```
 
 On Linux, your user must have permission to access the keyboard's `/dev/hidraw*` nodes. The app does not change system permissions or require running the GUI as root. The Connection panel reports discovery and access failures. A native Zenity image chooser is optional; a built-in file browser is available when it is missing.
@@ -39,15 +39,19 @@ The package script generates an optimized, stripped native Linux archive with ch
 
 Writable paths follow XDG base directories:
 
-- Profiles/settings: `$XDG_CONFIG_HOME/keyboard-studio/profiles.json`, default `~/.config/keyboard-studio/profiles.json`.
-- Display presets: `$XDG_DATA_HOME/keyboard-studio/screen-presets.json`, default `~/.local/share/keyboard-studio/screen-presets.json`.
+- Profiles/settings: `$XDG_CONFIG_HOME/nix820-pro/profiles.json`, default `~/.config/nix820-pro/profiles.json`.
+- Display presets: `$XDG_DATA_HOME/nix820-pro/screen-presets.json`, default `~/.local/share/nix820-pro/screen-presets.json`.
 
-Relative/empty XDG overrides are ignored. No writable path is derived from the build machine's source tree. The repository and release archive contain no personal profiles or display presets.
+Relative/empty XDG overrides are ignored. On normal launch, missing files are automatically copied from the previous `keyboard-studio` folders under the same XDG config/data roots. Originals and existing `nix820-pro` files are preserved. All pending files are validated before copying; a migration error stops launch with a message. Help and screenshot mode never trigger migration.
+
+No writable path is derived from the build machine's source tree. The repository and release archive contain no personal profiles or display presets.
+
+Unreadable or malformed saved data stops startup with an error and leaves the files untouched. Saves use private, unique staging files and atomic replacement, so concurrent instances cannot publish a partially written file. When two instances edit the same file, the last save wins.
 
 To copy your prototype data, pass the old **app folder** explicitly:
 
 ```sh
-./target/release/keyboard-studio --migrate-from "/path/to/old/project/app"
+./target/release/nix820-pro --migrate-from "/path/to/old/project/app"
 ```
 
 This command validates available files and exits without opening the GUI or sending USB traffic. It preserves the source files and existing destination files. It supports `profiles.json`, `screen-presets.json` and the old `screen-project.bin`. Profile import/export remains available in Keymap. Migration preserves inactive legacy editor preferences without enabling those editors.
@@ -65,10 +69,10 @@ Keep original USB captures private unless they have been reviewed for unrelated 
 
 ## CLI and screenshots
 
-`--help` describes the options. `--page home|keymap|lighting|display|device` opens a section. `--screenshot FILE` renders that single page using deterministic defaults, without loading/saving user data or sending USB commands; it requires a working desktop/display connection. Native screenshots could not be regenerated in the coding sandbox, so the headless egui tests are the current UI verification.
+`--help` describes the options. `--page home|keymap|lighting|display|device` opens a section. `--screenshot FILE` renders that single page using deterministic defaults, without loading/saving user data or sending USB commands; it requires a working desktop/display connection. Native captures of all five sections were reviewed outside the coding sandbox using screenshot mode. `bash scripts/preview.sh` regenerates the pages under ignored `screenshots/`; it accepts an output directory and optional binary path. Headless egui interaction tests also run in CI.
 
-If this folder was prepared inside the original workspace because of filesystem restrictions, run `bash scripts/move-project.sh` to relocate the standalone repository to `~/Documents/Projects/rust/keyboard-studio`. Existing destinations are never overwritten. The old prototype stays intact.
+If this folder was prepared inside the original workspace because of filesystem restrictions, run `bash scripts/move-project.sh` to relocate the standalone repository to `~/Documents/Projects/rust/nix820-pro`. Existing destinations are never overwritten. The old prototype stays intact.
 
 ## License
 
-Original Keyboard Studio code, documentation and drawings: **BSD Zero Clause (0BSD)**, as selected by the project owner. See [LICENSE](LICENSE). Bundled fonts and dependencies retain their own licenses; [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) contains their notices. Regenerate that file with `python3 tools/generate-notices.py` when changing dependencies or release targets.
+Original Nix820 Pro code, documentation and drawings: **BSD Zero Clause (0BSD)**, as selected by the project owner. See [LICENSE](LICENSE). Bundled fonts and dependencies retain their own licenses; [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) contains their notices. Regenerate that file with `python3 tools/generate-notices.py` when changing dependencies or release targets.

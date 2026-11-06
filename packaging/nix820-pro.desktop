@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
-Name=Keyboard Studio
+Name=Nix820 Pro
 Comment=Independent AK820 Pro configurator for Linux
-Exec=keyboard-studio
-Icon=keyboard-studio
+Exec=nix820-pro
+Icon=nix820-pro
 Terminal=false
 Categories=Utility;Settings;
 Keywords=keyboard;AK820;lighting;keymap;

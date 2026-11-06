@@ -1,6 +1,6 @@
 # Third-party notices
 
-Generated for `x86_64-unknown-linux-gnu`. Original Keyboard Studio code is 0BSD. Dependencies and bundled fonts retain the licenses below. The resolved graph can include build or optional packages in addition to linked code. System libraries retain their own licenses.
+Generated for `x86_64-unknown-linux-gnu`. Original Nix820 Pro code is 0BSD. Dependencies and bundled fonts retain the licenses below. The resolved graph can include build or optional packages in addition to linked code. System libraries retain their own licenses.
 
 | Package | Declared license | Text |
 | --- | --- | --- |

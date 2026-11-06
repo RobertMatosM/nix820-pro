@@ -16,10 +16,18 @@ use eframe::egui::{self, *};
 use model::{Profile, Saved};
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, path::PathBuf, time::Instant};
-const BG: Color32 = Color32::from_rgb(15, 23, 32);
-const FG: Color32 = Color32::from_rgb(231, 238, 245);
-const MUTED: Color32 = Color32::from_rgb(151, 168, 185);
-const ACCENT: Color32 = Color32::from_rgb(69, 201, 183);
+// Starry Grey: charcoal case, warm gray keycaps, restrained yellow accents.
+const BG: Color32 = Color32::from_rgb(27, 28, 30);
+const SURFACE: Color32 = Color32::from_rgb(41, 43, 46);
+const SIDEBAR: Color32 = Color32::from_rgb(32, 34, 36);
+const BORDER: Color32 = Color32::from_rgb(71, 74, 79);
+const FG: Color32 = Color32::from_rgb(236, 237, 234);
+const MUTED: Color32 = Color32::from_rgb(174, 177, 181);
+const ACCENT: Color32 = Color32::from_rgb(242, 207, 53);
+const SELECTION: Color32 = Color32::from_rgb(69, 63, 35);
+const KEY_LIGHT: Color32 = Color32::from_rgb(201, 203, 200);
+const KEY_DARK: Color32 = Color32::from_rgb(102, 106, 112);
+const INK: Color32 = Color32::from_rgb(27, 28, 30);
 const MODES: [&str; 20] = [
     "Static",
     "SingleOn",
@@ -49,6 +57,7 @@ enum ModeChange {
 struct Studio {
     saved: Saved,
     paths: crate::paths::AppPaths,
+    persistence_ready: bool,
     destination_query: String,
     destination_category: usize,
     about_open: bool,
@@ -104,17 +113,32 @@ impl Studio {
             page,
             crate::paths::AppPaths::discover().expect("user directories"),
         )
+        .expect("test app data")
     }
     fn create_with_paths(
         ctx: &Context,
         screenshot: Option<PathBuf>,
         page: usize,
         paths: crate::paths::AppPaths,
-    ) -> Self {
+    ) -> Result<Self, String> {
         let mut style = (*ctx.style_of(Theme::Dark)).clone();
         style.visuals = Visuals::dark();
         style.visuals.override_text_color = Some(FG);
         style.visuals.panel_fill = BG;
+        style.visuals.window_fill = SURFACE;
+        style.visuals.extreme_bg_color = BG;
+        style.visuals.faint_bg_color = SURFACE;
+        style.visuals.selection.bg_fill = SELECTION;
+        style.visuals.selection.stroke = Stroke::new(1., ACCENT);
+        style.visuals.hyperlink_color = ACCENT;
+        style.visuals.widgets.inactive.bg_fill = SURFACE;
+        style.visuals.widgets.inactive.weak_bg_fill = SURFACE;
+        style.visuals.widgets.hovered.bg_fill = SELECTION;
+        style.visuals.widgets.hovered.weak_bg_fill = SELECTION;
+        style.visuals.widgets.hovered.bg_stroke = Stroke::new(1., ACCENT);
+        style.visuals.widgets.active.bg_fill = SELECTION;
+        style.visuals.widgets.active.weak_bg_fill = SELECTION;
+        style.visuals.widgets.active.bg_stroke = Stroke::new(1., ACCENT);
         ctx.set_style_of(Theme::Dark, style);
 
         let mut fonts = FontDefinitions::default();
@@ -138,21 +162,36 @@ impl Studio {
             vec!["interface".into(), "symbols".into()],
         );
         ctx.set_fonts(fonts);
-        let mut saved = screenshot
-            .is_none()
-            .then(|| std::fs::read(paths.config.join("profiles.json")).ok())
-            .flatten()
-            .and_then(|x| serde_json::from_slice::<Saved>(&x).ok())
-            .filter(|s| {
-                !s.profiles.is_empty()
-                    && s.selected < s.profiles.len()
-                    && s.profiles.iter().all(Profile::valid)
-            })
-            .unwrap_or(Saved {
-                profiles: (1..=3).map(Profile::new).collect(),
-                selected: 0,
-                extras: model::Extras::default(),
-            });
+        let saved_path = paths.config.join("profiles.json");
+        let mut saved = if screenshot.is_some() {
+            None
+        } else {
+            crate::paths::read_optional(&saved_path)?
+                .map(|bytes| {
+                    let saved: Saved = serde_json::from_slice(&bytes).map_err(|error| {
+                        format!(
+                            "Invalid profiles in {}: {error}. The file was left untouched.",
+                            saved_path.display()
+                        )
+                    })?;
+                    if saved.profiles.is_empty()
+                        || saved.selected >= saved.profiles.len()
+                        || !saved.profiles.iter().all(Profile::valid)
+                    {
+                        return Err(format!(
+                            "Invalid profiles in {}. The file was left untouched.",
+                            saved_path.display()
+                        ));
+                    }
+                    Ok(saved)
+                })
+                .transpose()?
+        }
+        .unwrap_or(Saved {
+            profiles: (1..=3).map(Profile::new).collect(),
+            selected: 0,
+            extras: model::Extras::default(),
+        });
         let unsupported_sleep = saved.extras.migrate_settings();
         for profile in &mut saved.profiles {
             profile.migrate_key_maps();
@@ -160,6 +199,7 @@ impl Studio {
         let mut a = Self {
             saved,
             paths,
+            persistence_ready: false,
             destination_query: String::new(),
             destination_category: 0,
             about_open: false,
@@ -208,13 +248,14 @@ impl Studio {
                 "No transfer yet. Local changes are applied only with Apply or Upload.".into(),
         };
         if a.screenshot.is_none() {
-            a.load_screens();
+            a.load_screens()?;
         }
+        a.persistence_ready = true;
         a.scan();
         if unsupported_sleep {
             a.notify("Previous sleep choice is unsupported; changed locally to 1min. Review before Apply settings.");
         }
-        a
+        Ok(a)
     }
     fn p(&self) -> &Profile {
         &self.saved.profiles[self.saved.selected]
@@ -226,17 +267,13 @@ impl Studio {
         self.toast = Some((s.into(), Instant::now()));
     }
     fn save(&mut self) {
-        if self.screenshot.is_some() {
+        if self.screenshot.is_some() || !self.persistence_ready {
             return;
         }
         match serde_json::to_vec_pretty(&self.saved)
             .map_err(|e| e.to_string())
-            .and_then(|x| {
-                std::fs::create_dir_all(&self.paths.config).map_err(|e| e.to_string())?;
-                let temp = self.paths.config.join("profiles.tmp");
-                std::fs::write(&temp, x).map_err(|e| e.to_string())?;
-                std::fs::rename(temp, self.paths.config.join("profiles.json"))
-                    .map_err(|e| e.to_string())
+            .and_then(|bytes| {
+                crate::paths::write_atomic(&self.paths.config.join("profiles.json"), &bytes)
             }) {
             Ok(_) => {}
             Err(e) => self.notify(format!("Could not save: {e}")),
@@ -276,7 +313,7 @@ pub(crate) fn run() -> eframe::Result {
     let args: Vec<String> = std::env::args().collect();
     if args.iter().any(|arg| arg == "--help" || arg == "-h") {
         println!(
-            "Keyboard Studio {}\nIndependent AK820 Pro configurator for Linux\n\n--page home|keymap|lighting|display|device\n--screenshot FILE  Render one page without loading or saving user data\n--migrate-from DIR  Copy legacy profiles/presets into XDG directories, then exit",
+            "Nix820 Pro {}\nIndependent AK820 Pro configurator for Linux\n\n--page home|keymap|lighting|display|device\n--screenshot FILE  Render one page without loading or saving user data\n--migrate-from DIR  Copy legacy profiles/presets into XDG directories, then exit",
             env!("CARGO_PKG_VERSION")
         );
         return Ok(());
@@ -313,22 +350,33 @@ pub(crate) fn run() -> eframe::Result {
         viewport: ViewportBuilder::default()
             .with_inner_size([1480., 800.])
             .with_min_inner_size([1110., 600.])
-            .with_title("Keyboard Studio"),
+            .with_title("Nix820 Pro"),
         renderer: eframe::Renderer::Glow,
         ..Default::default()
     };
     let paths =
         crate::paths::AppPaths::discover().map_err(|e| eframe::Error::AppCreation(e.into()))?;
+    let migrated = if screenshot.is_none() {
+        migrate_previous_name(&paths).map_err(|e| {
+            eframe::Error::AppCreation(
+                format!("Could not migrate Keyboard Studio data: {e}").into(),
+            )
+        })?
+    } else {
+        0
+    };
     eframe::run_native(
-        "Keyboard Studio",
+        "Nix820 Pro",
         opts,
         Box::new(move |cc| {
-            Ok(Box::new(Studio::create_with_paths(
-                &cc.egui_ctx,
-                screenshot,
-                page,
-                paths,
-            )))
+            let mut studio = Studio::create_with_paths(&cc.egui_ctx, screenshot, page, paths)
+                .map_err(|error| -> Box<dyn std::error::Error + Send + Sync> { error.into() })?;
+            if migrated > 0 {
+                studio.notify(format!(
+                    "Migrated {migrated} saved files from Keyboard Studio. Originals were kept."
+                ));
+            }
+            Ok(Box::new(studio))
         }),
     )
 }
@@ -340,17 +388,53 @@ fn migrate_legacy(
     if !source.is_dir() {
         return Err("Legacy directory does not exist.".into());
     }
+    migrate_files([
+        (
+            source.join("profiles.json"),
+            paths.config.join("profiles.json"),
+        ),
+        (
+            source.join("screen-presets.json"),
+            paths.data.join("screen-presets.json"),
+        ),
+        (
+            source.join("screen-project.bin"),
+            paths.data.join("screen-project.bin"),
+        ),
+    ])
+}
+fn migrate_previous_name(paths: &crate::paths::AppPaths) -> Result<usize, String> {
+    let previous = paths.previous_name();
+    migrate_files([
+        (
+            previous.config.join("profiles.json"),
+            paths.config.join("profiles.json"),
+        ),
+        (
+            previous.data.join("screen-presets.json"),
+            paths.data.join("screen-presets.json"),
+        ),
+        (
+            previous.data.join("screen-project.bin"),
+            paths.data.join("screen-project.bin"),
+        ),
+    ])
+}
+fn migrate_files(sources: impl IntoIterator<Item = (PathBuf, PathBuf)>) -> Result<usize, String> {
     let mut files = vec![];
-    for (name, directory) in [
-        ("profiles.json", &paths.config),
-        ("screen-presets.json", &paths.data),
-        ("screen-project.bin", &paths.data),
-    ] {
-        let path = source.join(name);
-        if !path.exists() || directory.join(name).exists() {
+    for (path, target) in sources {
+        if target.exists() {
             continue;
         }
-        let bytes = std::fs::read(&path).map_err(|e| e.to_string())?;
+        let name = path
+            .file_name()
+            .and_then(|name| name.to_str())
+            .ok_or("Invalid migration filename")?;
+        let bytes = match std::fs::read(&path) {
+            Ok(bytes) => bytes,
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => continue,
+            Err(error) => return Err(format!("{}: {error}", path.display())),
+        };
         match name {
             "profiles.json" => {
                 let saved: Saved = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
@@ -382,24 +466,36 @@ fn migrate_legacy(
                 }
             }
         }
-        files.push((directory.join(name), bytes));
+        files.push((target, bytes));
     }
     let mut copied = 0;
     for (target, bytes) in files {
-        std::fs::create_dir_all(target.parent().unwrap()).map_err(|e| e.to_string())?;
+        std::fs::create_dir_all(target.parent().unwrap()).map_err(|error| error.to_string())?;
+        let temporary = target.with_file_name(format!(
+            ".{}.migrate-{}.tmp",
+            target.file_name().unwrap().to_string_lossy(),
+            std::process::id()
+        ));
         use std::io::Write;
-        match std::fs::OpenOptions::new()
+        let mut file = std::fs::OpenOptions::new()
             .write(true)
             .create_new(true)
-            .open(&target)
-        {
-            Ok(mut file) => {
-                file.write_all(&bytes).map_err(|e| e.to_string())?;
-                copied += 1;
+            .open(&temporary)
+            .map_err(|error| error.to_string())?;
+        let result = (|| -> Result<bool, String> {
+            file.write_all(&bytes)
+                .and_then(|()| file.sync_all())
+                .map_err(|error| error.to_string())?;
+            // Publish a complete file atomically; a concurrent destination is preserved.
+            match std::fs::hard_link(&temporary, &target) {
+                Ok(()) => Ok(true),
+                Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => Ok(false),
+                Err(error) => Err(error.to_string()),
             }
-            Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => {}
-            Err(e) => return Err(e.to_string()),
-        }
+        })();
+        drop(file);
+        let _ = std::fs::remove_file(&temporary);
+        copied += usize::from(result?);
     }
     Ok(copied)
 }
@@ -459,7 +555,7 @@ mod migration_tests {
             original
         );
         let ctx = Context::default();
-        let mut app = Studio::create_with_paths(&ctx, None, 1, paths.clone());
+        let mut app = Studio::create_with_paths(&ctx, None, 1, paths.clone()).unwrap();
         assert_eq!(
             app.p().fn_keys.get("I"),
             Some(&Some(crate::remap::KeyCode::Insert))
@@ -497,6 +593,163 @@ mod migration_tests {
         assert!(!paths.config.exists());
         assert!(!paths.data.exists());
         assert!(migrate_legacy(&root.join("missing"), &paths).is_err());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    fn renamed_paths(root: &std::path::Path) -> crate::paths::AppPaths {
+        crate::paths::AppPaths {
+            config: root.join("config/nix820-pro"),
+            data: root.join("data/nix820-pro"),
+        }
+    }
+    fn previous_files(root: &std::path::Path) -> (crate::paths::AppPaths, Vec<u8>, Vec<u8>) {
+        let paths = renamed_paths(root);
+        let old = paths.previous_name();
+        std::fs::create_dir_all(&old.config).unwrap();
+        std::fs::create_dir_all(&old.data).unwrap();
+        let profiles = profiles();
+        let presets = serde_json::to_vec(&(0, vec![model::ScreenPreset::blank(1)])).unwrap();
+        std::fs::write(old.config.join("profiles.json"), &profiles).unwrap();
+        std::fs::write(old.data.join("screen-presets.json"), &presets).unwrap();
+        (paths, profiles, presets)
+    }
+    #[test]
+    fn previous_name_migration_copies_separate_xdg_folders_and_is_idempotent() {
+        let root = folder();
+        let (paths, profiles, presets) = previous_files(&root);
+        assert_eq!(migrate_previous_name(&paths).unwrap(), 2);
+        assert_eq!(
+            std::fs::read(paths.config.join("profiles.json")).unwrap(),
+            profiles
+        );
+        assert_eq!(
+            std::fs::read(paths.data.join("screen-presets.json")).unwrap(),
+            presets
+        );
+        assert_eq!(migrate_previous_name(&paths).unwrap(), 0);
+        let old = paths.previous_name();
+        assert_eq!(
+            std::fs::read(old.config.join("profiles.json")).unwrap(),
+            profiles
+        );
+        assert_eq!(
+            std::fs::read(old.data.join("screen-presets.json")).unwrap(),
+            presets
+        );
+        assert_eq!(std::fs::read_dir(&paths.config).unwrap().count(), 1);
+        assert_eq!(std::fs::read_dir(&paths.data).unwrap().count(), 1);
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn previous_name_migration_fills_only_missing_files_and_preserves_newer_profiles() {
+        let root = folder();
+        let (paths, _, presets) = previous_files(&root);
+        std::fs::create_dir_all(&paths.config).unwrap();
+        let mut newer: serde_json::Value = serde_json::from_slice(&profiles()).unwrap();
+        newer["profiles"][0]["name"] = "Existing Nix820 Pro profile".into();
+        let newer = serde_json::to_vec(&newer).unwrap();
+        std::fs::write(paths.config.join("profiles.json"), &newer).unwrap();
+        assert_eq!(migrate_previous_name(&paths).unwrap(), 1);
+        assert_eq!(
+            std::fs::read(paths.config.join("profiles.json")).unwrap(),
+            newer
+        );
+        assert_eq!(
+            std::fs::read(paths.data.join("screen-presets.json")).unwrap(),
+            presets
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn previous_name_migration_validates_both_folders_before_copying_any_file() {
+        let root = folder();
+        let (paths, _, _) = previous_files(&root);
+        std::fs::write(
+            paths.previous_name().data.join("screen-presets.json"),
+            b"invalid",
+        )
+        .unwrap();
+        assert!(migrate_previous_name(&paths).is_err());
+        assert!(!paths.config.exists());
+        assert!(!paths.data.exists());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn malformed_profiles_abort_startup_without_changing_any_saved_file() {
+        let root = folder();
+        let paths = paths(&root);
+        std::fs::create_dir_all(&paths.config).unwrap();
+        std::fs::create_dir_all(&paths.data).unwrap();
+        let presets = serde_json::to_vec(&(0, vec![model::ScreenPreset::blank(1)])).unwrap();
+        std::fs::write(paths.data.join("screen-presets.json"), &presets).unwrap();
+        let mut invalid: serde_json::Value = serde_json::from_slice(&profiles()).unwrap();
+        invalid["selected"] = 999.into();
+        for bytes in [
+            b"broken JSON".to_vec(),
+            serde_json::to_vec(&invalid).unwrap(),
+        ] {
+            std::fs::write(paths.config.join("profiles.json"), &bytes).unwrap();
+            let result = Studio::create_with_paths(&Context::default(), None, 1, paths.clone());
+            assert!(result.is_err());
+            drop(result);
+            assert_eq!(
+                std::fs::read(paths.config.join("profiles.json")).unwrap(),
+                bytes
+            );
+            assert_eq!(
+                std::fs::read(paths.data.join("screen-presets.json")).unwrap(),
+                presets
+            );
+        }
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn malformed_presets_abort_startup_without_falling_back_or_saving_defaults() {
+        let root = folder();
+        let paths = paths(&root);
+        std::fs::create_dir_all(&paths.config).unwrap();
+        std::fs::create_dir_all(&paths.data).unwrap();
+        let profiles = profiles();
+        std::fs::write(paths.config.join("profiles.json"), &profiles).unwrap();
+        // A valid older-format file must not mask a damaged current preset file.
+        let mut legacy = b"KSC1".to_vec();
+        legacy.extend_from_slice(&[1, 0, 50, 0]);
+        legacy.resize(8 + 160 * 128 * 4, 0);
+        std::fs::write(paths.data.join("screen-project.bin"), &legacy).unwrap();
+        let invalid = serde_json::to_vec(&(9, vec![model::ScreenPreset::blank(1)])).unwrap();
+        for bytes in [b"broken JSON".to_vec(), invalid] {
+            std::fs::write(paths.data.join("screen-presets.json"), &bytes).unwrap();
+            let result = Studio::create_with_paths(&Context::default(), None, 4, paths.clone());
+            assert!(result.is_err());
+            drop(result);
+            assert_eq!(
+                std::fs::read(paths.data.join("screen-presets.json")).unwrap(),
+                bytes
+            );
+            assert_eq!(
+                std::fs::read(paths.config.join("profiles.json")).unwrap(),
+                profiles
+            );
+            assert_eq!(
+                std::fs::read(paths.data.join("screen-project.bin")).unwrap(),
+                legacy
+            );
+        }
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn corrupt_legacy_display_data_cannot_be_replaced_by_defaults_on_startup_error() {
+        let root = folder();
+        let paths = paths(&root);
+        std::fs::create_dir_all(&paths.data).unwrap();
+        std::fs::write(paths.data.join("screen-project.bin"), b"broken").unwrap();
+        let result = Studio::create_with_paths(&Context::default(), None, 4, paths.clone());
+        assert!(result.is_err());
+        drop(result);
+        assert!(!paths.data.join("screen-presets.json").exists());
+        assert_eq!(
+            std::fs::read(paths.data.join("screen-project.bin")).unwrap(),
+            b"broken"
+        );
         std::fs::remove_dir_all(root).unwrap();
     }
 }

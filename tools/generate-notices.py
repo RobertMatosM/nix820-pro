@@ -28,7 +28,7 @@ def notice(text):
     return digest
 for ident in sorted(seen,key=lambda ident:(packages[ident]['name'],packages[ident]['version'])):
     p=packages[ident]
-    if p['name']=='keyboard-studio': continue
+    if p['name']=='nix820-pro': continue
     directory=pathlib.Path(p['manifest_path']).parent
     files=sorted({f for pattern in ['LICENSE*','LICENCE*','COPYING*','NOTICE*','license*','licence*'] for f in directory.glob(pattern) if f.is_file()})
     if p.get('license_file') and (directory/p['license_file']).is_file(): files.append(directory/p['license_file'])
@@ -37,7 +37,7 @@ for ident in sorted(seen,key=lambda ident:(packages[ident]['name'],packages[iden
         files=[ROOT/'tools/license-overrides'/overrides[p['name']]]
     references=[notice(file.read_text(errors='replace')) for file in files]
     rows.append(f"| {p['name']} {p['version']} | {p.get('license') or 'See text'} | "+', '.join(f'[notice](#notice-{ref})' for ref in references)+' |')
-output=['# Third-party notices','',f'Generated for `{host}`. Original Keyboard Studio code is 0BSD. Dependencies and bundled fonts retain the licenses below. The resolved graph can include build or optional packages in addition to linked code. System libraries retain their own licenses.','', '| Package | Declared license | Text |','| --- | --- | --- |']+rows
+output=['# Third-party notices','',f'Generated for `{host}`. Original Nix820 Pro code is 0BSD. Dependencies and bundled fonts retain the licenses below. The resolved graph can include build or optional packages in addition to linked code. System libraries retain their own licenses.','', '| Package | Declared license | Text |','| --- | --- | --- |']+rows
 output+=['','## Bundled fonts','']
 for name in ['Interface-LICENSE.txt','Symbols-LICENSE.txt']:
     ref=notice((ROOT/'assets/fonts'/name).read_text())

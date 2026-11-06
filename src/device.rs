@@ -180,7 +180,7 @@ mod linux {
             let feature = open(&k.feature)?;
             // Advisory process lock is released when the feature fd closes.
             if unsafe { flock(feature.as_raw_fd(), 6) } != 0 {
-                return Err("Another Keyboard Studio transfer is using this keyboard.".into());
+                return Err("Another Nix820 Pro transfer is using this keyboard.".into());
             }
             let display = if needs_display {
                 Some(open(

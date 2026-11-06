@@ -6,7 +6,7 @@ impl Studio {
             let y = 77. + i as f32 * 32.;
             let r = Rect::from_min_size(pos2(66., y - 16.), vec2(239., 32.));
             if self.p().mode == i {
-                c.fill(r, 5., Color32::from_rgb(29, 91, 89));
+                c.fill(r, 5., SELECTION);
             }
             c.p.circle_stroke(
                 c.pos(89., y),
@@ -107,7 +107,7 @@ impl Studio {
                 mesh.add_triangle(0, i, i + 1);
             }
         }
-        c.p.circle_filled(c.point(center), 65. * c.s, Color32::from_rgb(16, 22, 26));
+        c.p.circle_filled(c.point(center), 65. * c.s, BG);
         c.p.add(Shape::mesh(mesh));
         let response = c.hit(
             ui,
@@ -147,7 +147,7 @@ impl Studio {
                 &mut v,
                 0.,
                 255.,
-                Color32::from_rgb(212, 81, 0),
+                [Color32::RED, Color32::GREEN, Color32::BLUE][i],
             ) {
                 self.pm().rgb[i] = v.round() as u8;
                 self.save();
@@ -162,7 +162,7 @@ impl Studio {
         }
         for (i, col) in [
             Color32::RED,
-            ACCENT,
+            Color32::from_rgb(69, 201, 183), // RGB shortcut, independent of the UI accent.
             Color32::YELLOW,
             Color32::GREEN,
             Color32::BLUE,

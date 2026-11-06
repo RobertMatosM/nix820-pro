@@ -60,14 +60,20 @@ impl Canvas {
             r,
             5.,
             if selected {
-                Color32::from_rgb(29, 91, 89)
+                ACCENT
             } else if response.hovered() {
                 Color32::from_gray(65)
             } else {
-                Color32::from_rgb(31, 47, 63)
+                SURFACE
             },
         );
-        self.text(r.center(), t, size, FG, Align2::CENTER_CENTER);
+        self.text(
+            r.center(),
+            t,
+            size,
+            if selected { INK } else { FG },
+            Align2::CENTER_CENTER,
+        );
         response
     }
     pub(super) fn checkbox(&self, ui: &mut Ui, p: Pos2, label: &str, v: &mut bool) -> bool {
