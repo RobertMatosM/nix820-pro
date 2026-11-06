@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-06",
+  "successful_map_transactions": 227,
+  "captures": {
+    "exclusive-config": {
+      "sha256": "dc3804f5a90510cb0918bd978c1b7224fccb6e1f23fb7a93f67d63df5a8790be",
+      "transactions": 4,
+      "last_block_to_commit_ms": {
+        "min": 70.41200000000103,
+        "median": 70.44700000000014,
+        "max": 70.49800000000062
+      }
+    },
+    "exclusive-config-updated": {
+      "sha256": "2271f73fc540cdb40d637dcca41f48aa0ba86b35f3556633200402dcbc8a96d8",
+      "transactions": 132,
+      "last_block_to_commit_ms": {
+        "min": 69.45999999999941,
+        "median": 70.5295000000028,
+        "max": 71.03700000000401
+      }
+    },
+    "exclusive-config-physical-test": {
+      "sha256": "a905f906589958c977158aca44dcd58687540e897658de8a20dc864a10353319",
+      "transactions": 89,
+      "last_block_to_commit_ms": {
+        "min": 69.49399999999173,
+        "median": 70.46100000000166,
+        "max": 70.79399999997804
+      }
+    },
+    "remap-test-single-a-to-b": {
+      "sha256": "76f1ccc6d91ed48c3938a60d02519cdfbd5f3777c14104ece35f159e1a0c9131",
+      "transactions": 2,
+      "last_block_to_commit_ms": {
+        "min": 70.47900000000062,
+        "median": 70.50700000000009,
+        "max": 70.53499999999957
+      }
+    }
+  },
+  "single_key_capture_post_command_reply_gaps": [
+    {
+      "reply_frame": 4204,
+      "next_write_frame": 4209,
+      "gap_ms": 35.341999999999985
+    },
+    {
+      "reply_frame": 4214,
+      "next_write_frame": 4215,
+      "gap_ms": 36.0870000000002
+    },
+    {
+      "reply_frame": 4566,
+      "next_write_frame": 4627,
+      "gap_ms": 35.1890000000008
+    },
+    {
+      "reply_frame": 9530,
+      "next_write_frame": 9539,
+      "gap_ms": 35.41900000000098
+    },
+    {
+      "reply_frame": 9560,
+      "next_write_frame": 9605,
+      "gap_ms": 35.416000000001446
+    },
+    {
+      "reply_frame": 10002,
+      "next_write_frame": 10003,
+      "gap_ms": 35.51799999999972
+    }
+  ],
+  "previous_implementation": "35 ms post-write delay; no extra post-reply or pre-commit settling interval.",
+  "correction": "Retain 35 ms between data writes; add 35 ms after setup/begin/commit replies and 35 ms extra before commit. Last data write to commit is at least 70 ms.",
+  "reported_symptom": "Intermittent 04 02 00 ff rejection; identical manual Apply succeeds later. User reports working remaps, initially noticed Enter and semicolon.",
+  "ff_status_semantics": "Negative response observed; a specific meaning such as busy has not been established.",
+  "cause_confirmed": false,
+  "failed_app_capture_available": false,
+  "other_configurator_running": "Operator not sure",
+  "hardware_verification": "Pacing correction has not been physically retested; no USB writes during development.",
+  "retry_policy": "No automatic resend of commit or full transaction. Negative replies and I/O errors remain failures."
+}

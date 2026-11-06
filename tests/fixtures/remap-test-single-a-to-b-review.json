@@ -1,0 +1,53 @@
+{
+  "sha256": "76f1ccc6d91ed48c3938a60d02519cdfbd5f3777c14104ece35f159e1a0c9131",
+  "set_report_count": 26,
+  "successful_completions": 26,
+  "table_count": 2,
+  "unique_tables": 2,
+  "verified_command_replies": 8,
+  "source_slot_count": 1,
+  "repeated_updates": 0,
+  "commands": [
+    "0411"
+  ],
+  "source_slots": [
+    {
+      "slot": 56,
+      "offset": 224,
+      "first_frame": 4209,
+      "time": 9.573049,
+      "record": "02000500"
+    }
+  ],
+  "record_counts": {
+    "02000500": 1
+  },
+  "physical_labels_confirmed": true,
+  "layer_confirmed": true,
+  "capture": "remap-test-single-a-to-b.pcapng",
+  "layer": "Top",
+  "label_basis": "Operator explicitly reported physical A -> B, then default restoration, on Top layer.",
+  "source_key": "A",
+  "source_slot": 56,
+  "source_offset": 224,
+  "source_mapping_evidence": "../../ak820-capture/exclusive-config-physical-test.actions.json",
+  "remap_record": "02000500",
+  "restored_record": "00000000",
+  "remap_table_frame": 4209,
+  "restore_table_frame": 9539,
+  "changed_slots_on_restore": [
+    56
+  ],
+  "changed_byte_offsets_on_restore": [
+    224,
+    226
+  ],
+  "other_record_bytes_unchanged": true,
+  "restored_table_zero_except_marker": true,
+  "separate_reset_opcode_observed": false,
+  "pre_remap_baseline_in_capture": false,
+  "physical_key_output_verified": false,
+  "power_cycle_persistence_verified": false,
+  "interpretation": "Capture supports a Top-layer override table: A -> B is 02000500 at slot 56; the default-restoration upload clears all override records and retains aa55. General per-key default behavior extrapolates this one-key case.",
+  "runtime_upload_policy_changed": false
+}

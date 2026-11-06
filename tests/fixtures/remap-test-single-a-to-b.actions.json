@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "capture": "remap-test-single-a-to-b.pcapng",
+  "sha256": "76f1ccc6d91ed48c3938a60d02519cdfbd5f3777c14104ece35f159e1a0c9131",
+  "operator_confirmation_date": "2026-11-06",
+  "layer": "Top",
+  "source_key": "A",
+  "destination_key": "B",
+  "source_slot": 56,
+  "source_offset": 224,
+  "source_label_capture_sha256": "a905f906589958c977158aca44dcd58687540e897658de8a20dc864a10353319",
+  "operator_description": "It remaps the physical key A to B, then I restore to default. Still on Top-layer.",
+  "actions": [
+    {
+      "order": 1,
+      "action": "A -> B",
+      "map_frame": 4209,
+      "time": 9.573049,
+      "record": "02000500"
+    },
+    {
+      "order": 2,
+      "action": "Restore defaults",
+      "map_frame": 9539,
+      "time": 21.913502,
+      "record": "00000000"
+    }
+  ],
+  "restoration_scope_note": "Only A has a nonzero override before restoration; this capture cannot distinguish a single-key restore from resetting all override records.",
+  "pre_remap_baseline_in_capture": false,
+  "physical_key_output_verified": false
+}

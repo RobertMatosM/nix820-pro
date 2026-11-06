@@ -1,0 +1,26 @@
+{
+  "capture": "reset-keyboard-and-factory-reset.pcapng",
+  "sha256": "79c5ef780ad8948c8c2292c7e172ea490ca20f4b4cc8be96e5b3a77bd6e2376e",
+  "actions_present": "Operator states capture covers System Settings Reset keyboard and Factory Reset.",
+  "order_basis": "Assumed Reset Keyboard then Factory Reset from filename/order listed; operator asked to confirm.",
+  "order_independently_confirmed": false,
+  "actions": [
+    {
+      "label": "Reset Keyboard",
+      "first_write_frame": 5795,
+      "first_write_time": 16.958638,
+      "writes": 26,
+      "replies": 8,
+      "observed_effect": "Zero Top and Fn override tables."
+    },
+    {
+      "label": "Factory Reset",
+      "first_write_frame": 7035,
+      "first_write_time": 25.92467,
+      "writes": 46,
+      "replies": 17,
+      "observed_effect": "0419, eight-block 0415 clear, zero Top/Fn overrides, lighting/default-settings writes."
+    }
+  ],
+  "limits": "Exact purpose of 0419 and 0415 storage, effects on other subsystems and physical app reset behavior unverified."
+}

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Keyboard Studio
+Comment=Independent AK820 Pro configurator for Linux
+Exec=keyboard-studio
+Icon=keyboard-studio
+Terminal=false
+Categories=Utility;Settings;
+Keywords=keyboard;AK820;lighting;keymap;
+StartupNotify=true

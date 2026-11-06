@@ -1,0 +1,13 @@
+/target/
+/dist/
+/capture-output/
+*.pcap
+*.pcapng
+__pycache__/
+*.pyc
+/profiles.json
+/profiles.tmp
+/screen-presets.json
+/screen-presets.tmp
+/screen-project.bin
+/screenshots/

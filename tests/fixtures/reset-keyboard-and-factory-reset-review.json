@@ -1,0 +1,31 @@
+{
+  "sha256": "79c5ef780ad8948c8c2292c7e172ea490ca20f4b4cc8be96e5b3a77bd6e2376e",
+  "transaction_count": 2,
+  "set_report_count": 72,
+  "successful_completions": 72,
+  "verified_command_replies": 25,
+  "action_label_basis": "Capture filename and stated action order; operator confirmation recorded separately.",
+  "reset_keyboard": "Clear Top and Fn override tables.",
+  "factory_reset": "0419; clear eight-block 0415 table; clear Top/Fn; restore captured lighting and settings.",
+  "unknown_clear_table": "Purpose of the 0415 storage area and 0419 command is not independently established.",
+  "factory_settings": {
+    "level": 2,
+    "sleep": "5min",
+    "disable_win": false,
+    "disable_alt_f4": false,
+    "disable_alt_tab": false
+  },
+  "factory_lighting": {
+    "mode_id": 11,
+    "rgb": [
+      255,
+      0,
+      0
+    ],
+    "colorful": true,
+    "brightness": 5,
+    "speed": 3
+  },
+  "factory_lighting_refresh_read": false,
+  "physical_app_verification": false
+}

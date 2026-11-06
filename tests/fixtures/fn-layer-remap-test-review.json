@@ -1,0 +1,48 @@
+{
+  "sha256": "7ff67691fe29f9b4564f73d6f60f3a11003e2796f8b7ce7ed68c938f560ee5ea",
+  "set_report_count": 26,
+  "successful_completions": 26,
+  "table_count": 2,
+  "unique_tables": 2,
+  "verified_command_replies": 8,
+  "source_slot_count": 1,
+  "repeated_updates": 0,
+  "commands": [
+    "0427"
+  ],
+  "source_slots": [
+    {
+      "slot": 45,
+      "offset": 180,
+      "first_frame": 2053,
+      "time": 4.145384,
+      "record": "02004900"
+    }
+  ],
+  "record_counts": {
+    "02004900": 1
+  },
+  "physical_labels_confirmed": true,
+  "layer_confirmed": true,
+  "layer": "Fn",
+  "source_key": "I",
+  "source_slot": 45,
+  "source_offset": 180,
+  "destination": "Insert",
+  "destination_record": "02004900",
+  "map_command": "0427",
+  "top_map_command": "0411",
+  "reserved_keys": [
+    "Esc",
+    "Backspace",
+    "Home",
+    "Win",
+    "Fn",
+    "Backslash/Pipe"
+  ],
+  "reserved_key_basis": "Operator transcribed the original driver hint for Fn-layer source keys.",
+  "label_basis": "Operator explicitly assigned Insert to physical I on Fn layer.",
+  "second_table": "Observed all-zero overrides plus aa55; operator did not specify the clearing gesture.",
+  "shared_source_layout": "I independently matches Top slot 45; other Fn source names reuse the Top layout as an inference.",
+  "physical_key_output_verified": false
+}

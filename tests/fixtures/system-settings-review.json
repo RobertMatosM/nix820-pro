@@ -1,0 +1,23 @@
+{
+  "sha256": "54047e66461943ff4db535513a4e6b434ebd8d85ded8e0a3ccd377eb91704e1b",
+  "transaction_count": 12,
+  "set_report_count": 48,
+  "successful_completions": 48,
+  "verified_command_replies": 36,
+  "unique_settings": 11,
+  "field_offsets": {
+    "response_level": 8,
+    "sleep": 6,
+    "disable_win": 4,
+    "disable_alt_f4": 3,
+    "disable_alt_tab": 2
+  },
+  "sleep_choices": [
+    "No sleep",
+    "1 min",
+    "5 min",
+    "30 min"
+  ],
+  "interpretation": "Field meanings derived from operator-labelled action order; physical effects and persistence unverified.",
+  "reset_commands_captured": false
+}

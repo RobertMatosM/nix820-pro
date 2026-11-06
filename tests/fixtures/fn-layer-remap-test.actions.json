@@ -1,0 +1,39 @@
+{
+  "capture": "fn-layer-remap-test.pcapng",
+  "sha256": "7ff67691fe29f9b4564f73d6f60f3a11003e2796f8b7ce7ed68c938f560ee5ea",
+  "layer": "Fn",
+  "operator_statement": "Assigned Insert to physical I on Fn layer.",
+  "reserved_source_keys": [
+    "Esc",
+    "Backspace",
+    "Home",
+    "Win",
+    "Fn",
+    "Backslash/Pipe"
+  ],
+  "reserved_basis": "Operator transcribed the original driver hint for Fn-layer source positions; purposes were not investigated.",
+  "actions": [
+    {
+      "operator_confirmed": true,
+      "action": "i_to_insert",
+      "map_begin_frame": 2053,
+      "time": 4.145384,
+      "source_slot": 45,
+      "source_offset": 180,
+      "record": "02004900",
+      "observation": "I to Insert; other source records zero"
+    },
+    {
+      "operator_confirmed": false,
+      "action": "clear_fn_overrides_observed",
+      "map_begin_frame": 4245,
+      "time": 19.601159,
+      "source_slot": 45,
+      "source_offset": 180,
+      "record": "00000000",
+      "observation": "All override records zero; clearing gesture not specified by operator"
+    }
+  ],
+  "inference": "I matches Top slot 45 independently; other Fn source positions reuse the Top layout without an exhaustive Fn source sweep.",
+  "physical_app_verification": "Pending user testing of this implementation."
+}

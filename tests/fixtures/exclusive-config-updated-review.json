@@ -1,0 +1,16 @@
+{
+  "sha256": "2271f73fc540cdb40d637dcca41f48aa0ba86b35f3556633200402dcbc8a96d8",
+  "set_report_count": 1716,
+  "successful_completions": 1716,
+  "table_count": 132,
+  "unique_tables": 129,
+  "verified_command_replies": 528,
+  "changed_record_offsets": [
+    152
+  ],
+  "destination_record_counts": {
+    "type_02_keyboard_candidate": 106,
+    "type_02_modifier_candidate": 8,
+    "type_03_consumer_candidate": 18
+  }
+}

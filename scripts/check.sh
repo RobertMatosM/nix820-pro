@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+project_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd -- "$project_dir"
+cargo fmt --all --check
+cargo test --locked
+cargo clippy --locked --all-targets -- -D warnings
+python3 -m unittest discover -s tools/captures -v

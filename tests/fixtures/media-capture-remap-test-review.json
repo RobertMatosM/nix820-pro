@@ -1,0 +1,165 @@
+{
+  "sha256": "67ae5a6bdbcb86e738214fc170316c3ffebe008d051f46429c1085619716f9ca",
+  "set_report_count": 234,
+  "successful_completions": 234,
+  "table_count": 18,
+  "unique_tables": 18,
+  "verified_command_replies": 72,
+  "source_slot_count": 1,
+  "repeated_updates": 0,
+  "commands": [
+    "0411"
+  ],
+  "source_slots": [
+    {
+      "slot": 1,
+      "offset": 4,
+      "first_frame": 1887,
+      "time": 3.541287,
+      "record": "03940100"
+    }
+  ],
+  "record_counts": {
+    "03940100": 1
+  },
+  "physical_labels_confirmed": true,
+  "layer_confirmed": true,
+  "source_key": "Esc",
+  "source_slot": 1,
+  "source_offset": 4,
+  "layer": "Top",
+  "layer_basis": "Continuing the Top-layer remapping investigation; 0411 matches the earlier operator-labelled Top capture.",
+  "label_basis": "Operator supplied the ordered 18 media actions; only Esc changes in the capture.",
+  "media_destination_count": 18,
+  "volume_label_note": "Operator wrote Volume at action 10; captured consumer usage 00ea is Volume Decrement, displayed as Volume Down.",
+  "actions": [
+    {
+      "action": "my_computer",
+      "operator_label": "My Computer",
+      "record": "03940100",
+      "map_frame": 1887,
+      "time": 3.541287
+    },
+    {
+      "action": "calculator",
+      "operator_label": "Calculator",
+      "record": "03920100",
+      "map_frame": 3925,
+      "time": 10.867459
+    },
+    {
+      "action": "mail",
+      "operator_label": "Mail",
+      "record": "038a0100",
+      "map_frame": 4529,
+      "time": 16.142295
+    },
+    {
+      "action": "multimedia",
+      "operator_label": "Multimedia",
+      "record": "03830100",
+      "map_frame": 4655,
+      "time": 19.098228
+    },
+    {
+      "action": "play_pause",
+      "operator_label": "Play/Pause",
+      "record": "03cd0000",
+      "map_frame": 4793,
+      "time": 22.719445
+    },
+    {
+      "action": "stop",
+      "operator_label": "Stop",
+      "record": "03b70000",
+      "map_frame": 5005,
+      "time": 25.465715
+    },
+    {
+      "action": "previous_track",
+      "operator_label": "Previous Track",
+      "record": "03b60000",
+      "map_frame": 5215,
+      "time": 28.424867
+    },
+    {
+      "action": "next_track",
+      "operator_label": "Next Track",
+      "record": "03b50000",
+      "map_frame": 5455,
+      "time": 31.291391
+    },
+    {
+      "action": "volume_up",
+      "operator_label": "Volume +",
+      "record": "03e90000",
+      "map_frame": 5597,
+      "time": 33.707207
+    },
+    {
+      "action": "volume_down",
+      "operator_label": "Volume",
+      "record": "03ea0000",
+      "map_frame": 5691,
+      "time": 36.337141
+    },
+    {
+      "action": "mute",
+      "operator_label": "Mute",
+      "record": "03e20000",
+      "map_frame": 5849,
+      "time": 38.850105
+    },
+    {
+      "action": "browser_home",
+      "operator_label": "Homepage",
+      "record": "03230200",
+      "map_frame": 5951,
+      "time": 41.361091
+    },
+    {
+      "action": "browser_refresh",
+      "operator_label": "Web Page - Refresh",
+      "record": "03270200",
+      "map_frame": 6277,
+      "time": 44.564639
+    },
+    {
+      "action": "browser_stop",
+      "operator_label": "Web Page - Stop",
+      "record": "03260200",
+      "map_frame": 6413,
+      "time": 47.160883
+    },
+    {
+      "action": "browser_back",
+      "operator_label": "Web Page - Back",
+      "record": "03240200",
+      "map_frame": 6643,
+      "time": 49.877457
+    },
+    {
+      "action": "browser_forward",
+      "operator_label": "Web Page - Forward",
+      "record": "03250200",
+      "map_frame": 6949,
+      "time": 52.292467
+    },
+    {
+      "action": "browser_favorites",
+      "operator_label": "Web Page - Favorites",
+      "record": "032a0200",
+      "map_frame": 7159,
+      "time": 55.287483
+    },
+    {
+      "action": "browser_search",
+      "operator_label": "Web Page - Search",
+      "record": "03210200",
+      "map_frame": 7455,
+      "time": 58.971348
+    }
+  ],
+  "physical_action_output_verified": false,
+  "default_restore_captured": false
+}

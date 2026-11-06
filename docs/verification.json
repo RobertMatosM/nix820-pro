@@ -1,0 +1,14 @@
+{
+  "rust_tests": 44,
+  "python_tests": 19,
+  "clippy": "cargo clippy --locked --all-targets -- -D warnings: passed",
+  "release_build": "passed; Linux x86_64, optimized, stripped, ThinLTO",
+  "binary_bytes": 10676936,
+  "archive_bytes": 4510624,
+  "archive_contents": "verified; no raw captures, private settings or development outputs",
+  "migration": "Real prototype profiles/presets/legacy binary copied into temporary XDG directories byte-for-byte; originals unchanged",
+  "native_gui": "Not verified: Wayland NoCompositor in sandbox. Headless UI tests pass.",
+  "hardware_writes": "None during refactoring or tests",
+  "original_workspace": "Prototype code and private data retained",
+  "license": "0BSD for original project; third-party notices separate"
+}
