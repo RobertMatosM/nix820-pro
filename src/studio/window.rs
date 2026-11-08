@@ -68,17 +68,21 @@ impl eframe::App for Studio {
                 );
                 c.text(
                     pos2(1235., 31.),
-                    "AK820 Pro · USB",
+                    if self.receiver_selected() {
+                        "AK820 Pro · 2.4 GHz"
+                    } else {
+                        "AK820 Pro · USB"
+                    },
                     13.,
                     MUTED,
                     Align2::RIGHT_CENTER,
                 );
-                if c.button(
+                if c.button_enabled(
                     ui,
                     Rect::from_min_size(pos2(1260., 16.), vec2(192., 30.)),
                     "Connection",
-                    false,
                     13.,
+                    self.transfer.is_none(),
                 )
                 .clicked()
                 {
@@ -103,7 +107,7 @@ impl eframe::App for Studio {
                 }
                 c.text(
                     pos2(226., 771.),
-                    "Local edits are sent only with Apply or Upload. Wired USB support.",
+                    "Apply sends local edits. Wired USB: all features. 2.4 GHz: selected keys, lighting, settings and resets.",
                     12.,
                     MUTED,
                     Align2::LEFT_CENTER,
@@ -270,7 +274,7 @@ impl Studio {
             ui.separator();
             ui.label("Original project code: BSD Zero Clause (0BSD). Bundled fonts and dependencies retain their own licenses; see THIRD_PARTY_NOTICES.md.");
             ui.label("Supported: wired keymaps (Base/Fn), media/browser actions, lighting, display uploads, clock sync, settings and resets.");
-            ui.label("Wireless configuration, macros, custom per-key lighting and audio-driven effects are not implemented.");
+            ui.label("2.4 GHz receiver: selected-key remapping, lighting, device settings and resets. Bluetooth configuration, macros, custom per-key lighting and audio-driven effects are not implemented.");
         });
     }
 }

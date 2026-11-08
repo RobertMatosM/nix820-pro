@@ -3,15 +3,20 @@ use super::*;
 impl Studio {
     pub(super) fn settings_page(&mut self, ui: &mut Ui, c: &Canvas) {
         self.keyboard(ui, c);
-        if c.button(ui, Rect::from_min_size(pos2(330., 81.), vec2(188., 30.)),
-                    "Apply settings", false, 14.)
-            .on_hover_text("Sends response time, sleep and the three shortcut locks over wired USB. Changes save locally until applied.")
+        if c.button_enabled(ui, Rect::from_min_size(pos2(330., 81.), vec2(188., 30.)),
+                    "Apply settings", 14., self.transfer.is_none())
+            .on_hover_text("Sends response time, sleep and the three shortcut locks over wired USB or 2.4 GHz. Changes save locally until applied.")
+            .on_disabled_hover_text("Wait for the current transfer to finish.")
             .clicked() {
             self.start_settings();
         }
         c.text(
             pos2(535., 96.),
-            "Wired USB · experimental",
+            if self.receiver_selected() {
+                "2.4 GHz · experimental"
+            } else {
+                "Wired USB · experimental"
+            },
             12.,
             MUTED,
             Align2::LEFT_CENTER,
@@ -25,7 +30,7 @@ impl Studio {
         );
         c.text(
             pos2(83., 136.),
-            "Changes apply over wired USB.",
+            "Apply over wired USB or 2.4 GHz.",
             12.,
             MUTED,
             Align2::LEFT_CENTER,
@@ -105,14 +110,15 @@ impl Studio {
         .iter()
         .enumerate()
         {
-            if c.button(
+            if c.button_enabled(
                 ui,
                 Rect::from_min_size(pos2(83., 603. + 50. * i as f32), vec2(200., 30.)),
                 kind.label(),
-                false,
                 16.,
+                self.transfer.is_none(),
             )
-            .on_hover_text(kind.description())
+            .on_hover_text(self.reset_description(*kind))
+            .on_disabled_hover_text("Wait for the current transfer to finish.")
             .clicked()
             {
                 self.pending_reset = Some(*kind);

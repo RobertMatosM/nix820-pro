@@ -235,6 +235,48 @@ pub fn source_slot(name: &str) -> Option<usize> {
         .map(|(_, slot)| *slot)
 }
 
+/// Normal physical key action. This does not describe firmware Fn shortcuts.
+pub fn base_key(source: &str) -> Option<KeyCode> {
+    source_slot(source)?;
+    Some(match source {
+        "Fn" => return None,
+        "` ~" => KeyCode::Grave,
+        "1 !" => KeyCode::Digit1,
+        "2 @" => KeyCode::Digit2,
+        "3 #" => KeyCode::Digit3,
+        "4 $" => KeyCode::Digit4,
+        "5 %" => KeyCode::Digit5,
+        "6 ^" => KeyCode::Digit6,
+        "7 &" => KeyCode::Digit7,
+        "8 *" => KeyCode::Digit8,
+        "9 (" => KeyCode::Digit9,
+        "0 )" => KeyCode::Digit0,
+        "- _" => KeyCode::Minus,
+        "= +" => KeyCode::Equal,
+        "[ {" => KeyCode::LeftBracket,
+        "] }" => KeyCode::RightBracket,
+        "\\ |" => KeyCode::Backslash,
+        "; :" => KeyCode::Semicolon,
+        "' \"" => KeyCode::Quote,
+        ", <" => KeyCode::Comma,
+        ". >" => KeyCode::Period,
+        "/ ?" => KeyCode::Slash,
+        "Shift" => KeyCode::LeftShift,
+        "Shift R" => KeyCode::RightShift,
+        "Ctrl" => KeyCode::LeftCtrl,
+        "Ctrl R" => KeyCode::RightCtrl,
+        "Alt" => KeyCode::LeftAlt,
+        "Alt R" => KeyCode::RightAlt,
+        "Win" => KeyCode::LeftMeta,
+        _ => {
+            return KeyCode::ALL
+                .iter()
+                .copied()
+                .find(|key| key.label() == source);
+        }
+    })
+}
+
 /// The Fn source restrictions come from the original driver's hint.
 pub const FN_RESERVED: &[&str] = &["Esc", "Back", "Home", "Win", "Fn", "\\ |"];
 
@@ -358,6 +400,30 @@ mod tests {
             .collect()
     }
 
+    #[test]
+    fn normal_key_actions_cover_all_physical_sources_without_modifier_side_aliases() {
+        let records: std::collections::BTreeSet<_> = SOURCES
+            .iter()
+            .filter(|(source, _)| *source != "Fn")
+            .map(|(source, _)| base_key(source).unwrap().record())
+            .collect();
+        assert_eq!(records.len(), SOURCES.len() - 1);
+        for (source, expected) in [
+            ("Shift", KeyCode::LeftShift),
+            ("Shift R", KeyCode::RightShift),
+            ("Ctrl", KeyCode::LeftCtrl),
+            ("Ctrl R", KeyCode::RightCtrl),
+            ("Alt", KeyCode::LeftAlt),
+            ("Alt R", KeyCode::RightAlt),
+            ("1 !", KeyCode::Digit1),
+            ("= +", KeyCode::Equal),
+            ("; :", KeyCode::Semicolon),
+        ] {
+            assert_eq!(base_key(source), Some(expected));
+        }
+        assert_eq!(base_key("Fn"), None);
+        assert_eq!(base_key("Calculator"), None);
+    }
     #[test]
     fn fn_i_insert_and_clear_match_all_captured_writes_replies_and_pacing() {
         let fixture: serde_json::Value = serde_json::from_str(include_str!(

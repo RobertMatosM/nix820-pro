@@ -251,7 +251,9 @@ impl Studio {
             a.load_screens()?;
         }
         a.persistence_ready = true;
-        a.scan();
+        if a.screenshot.is_none() {
+            a.scan();
+        }
         if unsupported_sleep {
             a.notify("Previous sleep choice is unsupported; changed locally to 1min. Review before Apply settings.");
         }
@@ -280,10 +282,18 @@ impl Studio {
         }
     }
     fn scan(&mut self) {
+        let selected = self
+            .keyboards
+            .get(self.keyboard_index)
+            .map(|k| (k.feature.clone(), k.connection));
         self.keyboards = crate::device::discover();
-        self.keyboard_index = self
-            .keyboard_index
-            .min(self.keyboards.len().saturating_sub(1));
+        self.keyboard_index = selected
+            .and_then(|(path, connection)| {
+                self.keyboards
+                    .iter()
+                    .position(|k| k.feature == path && k.connection == connection)
+            })
+            .unwrap_or(0);
         self.devices.clear();
         if let Ok(entries) = std::fs::read_dir("/sys/bus/usb/devices") {
             for e in entries.flatten() {

@@ -54,8 +54,10 @@ impl Studio {
         c.text(pos2(890., 285.), "AK820 Pro", 28., FG, Align2::LEFT_CENTER);
         c.text(
             pos2(890., 328.),
-            if self.keyboards.is_empty() {
-                "Connect by wired USB to apply changes."
+            if self.receiver_selected() {
+                "2.4 GHz receiver detected."
+            } else if self.keyboards.is_empty() {
+                "Connect by USB or use a 2.4 GHz receiver."
             } else {
                 "Wired keyboard detected."
             },

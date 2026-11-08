@@ -432,12 +432,15 @@ impl Studio {
             .iter()
             .enumerate()
         {
-            if c.button(
+            if c.button_enabled(
                 ui,
                 Rect::from_min_size(pos2(1040., 582. + i as f32 * 35.), vec2(215., 30.)),
                 label,
-                false,
                 16.,
+                matches!(i, 1 | 2) || self.wired_actions_available(),
+            )
+            .on_disabled_hover_text(
+                "Display transfers require wired USB, or another transfer is running.",
             )
             .clicked()
             {

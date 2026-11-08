@@ -109,6 +109,44 @@ impl Profile {
         }
         Ok(map)
     }
+    /// Read only the selected source; unrelated legacy overrides are not sent.
+    pub(super) fn destination_for_key(
+        &self,
+        layer: Layer,
+        source: &str,
+    ) -> Result<Option<KeyCode>, String> {
+        if !layer.allows(source) {
+            return Err(format!(
+                "Unsupported {}-layer source: {source}.",
+                layer.display_name()
+            ));
+        }
+        if let Some(destination) = self.choices(layer).get(source) {
+            return Ok(*destination);
+        }
+        if self
+            .maps
+            .contains_key(&format!("{}{source}", layer.prefix()))
+        {
+            return Err(format!(
+                "Reselect the saved destination for {source}; its old label is ambiguous."
+            ));
+        }
+        if layer == Layer::Top
+            && let Some(bytes) = &self.captured_map
+        {
+            let offset = source_slot(source).unwrap() * 4;
+            let record = bytes
+                .get(offset..offset + 4)
+                .ok_or("Invalid saved keymap length.")?;
+            if record != [0; 4] {
+                return KeyCode::from_record(record)
+                    .map(Some)
+                    .ok_or("Unsupported saved destination.".into());
+            }
+        }
+        Ok(None)
+    }
     #[cfg(test)]
     pub(super) fn top_map(&self) -> Result<KeyMap, String> {
         self.map_for_layer(Layer::Top)
@@ -167,6 +205,29 @@ impl Profile {
 mod remap_tests {
     use super::*;
 
+    #[test]
+    fn selected_key_preserves_captured_destinations_and_ignores_unrelated_legacy_data() {
+        let mut profile = Profile::new(1);
+        let mut captured = KeyMap::new(Layer::Top);
+        captured.set("A", Some(KeyCode::Calculator)).unwrap();
+        profile.captured_map = Some(captured.as_bytes().to_vec());
+        profile.maps.insert("0:W".into(), "ambiguous".into());
+        assert_eq!(
+            profile.destination_for_key(Layer::Top, "A").unwrap(),
+            Some(KeyCode::Calculator)
+        );
+        assert!(profile.destination_for_key(Layer::Top, "W").is_err());
+        profile.assign_layer(Layer::Top, "A", None).unwrap();
+        assert_eq!(profile.destination_for_key(Layer::Top, "A").unwrap(), None);
+        profile
+            .assign_layer(Layer::Fn, "I", Some(KeyCode::Insert))
+            .unwrap();
+        assert_eq!(
+            profile.destination_for_key(Layer::Fn, "I").unwrap(),
+            Some(KeyCode::Insert)
+        );
+        assert!(profile.destination_for_key(Layer::Fn, "Esc").is_err());
+    }
     #[test]
     fn legacy_migration_keeps_ambiguous_choices_and_fn_edits_until_reselected() {
         let mut p = Profile::new(1);
