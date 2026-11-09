@@ -1,5 +1,6 @@
 //! Capture-backed AK820 wired transactions. Pure encoders; no device access here.
 mod reset;
+pub mod wireless;
 pub use reset::{ResetKind, apply_reset};
 
 #[cfg(test)]

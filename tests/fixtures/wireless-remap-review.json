@@ -1,0 +1,82 @@
+{
+  "captures": [
+    {
+      "sha256": "aadc33a1f7a1855d51ce45639a5850b940a7c334f52d2f49802f1399d1b8243c",
+      "bus": 1,
+      "device": 4,
+      "layer": "Top",
+      "source": "A",
+      "source_slot": 56,
+      "transactions": [
+        {
+          "action": "remap",
+          "write_frame": 7115,
+          "completion_frame": 7118,
+          "write": "0304380200050000000000000000000000000000000000000000000000000046",
+          "record": "02000500",
+          "acknowledged": true,
+          "reply_frame": 7129,
+          "reply": "030438000000000000000000000000000000000000000000000000000000003f",
+          "reply_ms": 23.152,
+          "unrelated_inputs": []
+        },
+        {
+          "action": "restore_original_key",
+          "write_frame": 12931,
+          "completion_frame": 12932,
+          "write": "0304380200040000000000000000000000000000000000000000000000000045",
+          "record": "02000400",
+          "acknowledged": false,
+          "reply_frame": null,
+          "reply": null,
+          "reply_ms": null,
+          "unrelated_inputs": [
+            {
+              "frame": 15365,
+              "header": "55fc04"
+            }
+          ]
+        }
+      ],
+      "verified_replies": 1,
+      "capture": "usb-wireless-remap-top-layer-atob-default.pcapng",
+      "operator_confirmation": "A returned to normal after restoration; no driver error. This does not supply the missing protocol acknowledgement."
+    },
+    {
+      "sha256": "5114f0eafed94f87636816667befbac8f6e6a4a7ab45cf0fd83db97492822b98",
+      "bus": 1,
+      "device": 4,
+      "layer": "Fn",
+      "source": "I",
+      "source_slot": 45,
+      "transactions": [
+        {
+          "action": "remap",
+          "write_frame": 5217,
+          "completion_frame": 5218,
+          "write": "0d042d0200490000000000000000000000000000000000000000000000000089",
+          "record": "02004900",
+          "acknowledged": true,
+          "reply_frame": 5229,
+          "reply": "0d042d000000000000000000000000000000000000000000000000000000003e",
+          "reply_ms": 22.721,
+          "unrelated_inputs": []
+        },
+        {
+          "action": "restore_original_key",
+          "write_frame": 9209,
+          "completion_frame": 9210,
+          "write": "0d042d02000c000000000000000000000000000000000000000000000000004c",
+          "record": "02000c00",
+          "acknowledged": true,
+          "reply_frame": 9221,
+          "reply": "0d042d000000000000000000000000000000000000000000000000000000003e",
+          "reply_ms": 21.753,
+          "unrelated_inputs": []
+        }
+      ],
+      "verified_replies": 2,
+      "capture": "usb-wireless-remap-fn-layer-itoinsert-default.pcapng"
+    }
+  ]
+}

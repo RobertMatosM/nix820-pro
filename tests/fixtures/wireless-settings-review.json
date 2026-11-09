@@ -1,0 +1,332 @@
+{
+  "captures": [
+    {
+      "sha256": "74a1d4d5c9ea55e7847ac2e709a2122105c2963e890a3070c1d9762fc410a7b2",
+      "kind": "levels",
+      "bus": 1,
+      "device": 4,
+      "total_successful_writes": 8,
+      "verified_action_replies": 5,
+      "transactions": [
+        {
+          "write_frame": 1724,
+          "completion_frame": 1725,
+          "write": "0710000001000000000200010000000000aa550000000000000000000000001a",
+          "reply_frame": 1736,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": false,
+          "reply_ms": 17.724,
+          "interleaved_requests": [],
+          "level": 1,
+          "sleep": 2,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 2893,
+          "completion_frame": 2894,
+          "write": "0710000001000000000200020000000000aa550000000000000000000000001b",
+          "reply_frame": 2903,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 17.496,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 2,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 4051,
+          "completion_frame": 4052,
+          "write": "0710000001000000000200030000000000aa550000000000000000000000001c",
+          "reply_frame": 4061,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 18.297,
+          "interleaved_requests": [],
+          "level": 3,
+          "sleep": 2,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 5171,
+          "completion_frame": 5174,
+          "write": "0710000001000000000200040000000000aa550000000000000000000000001d",
+          "reply_frame": 5181,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 16.009,
+          "interleaved_requests": [],
+          "level": 4,
+          "sleep": 2,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 7067,
+          "completion_frame": 7068,
+          "write": "0710000001000000000200050000000000aa550000000000000000000000001e",
+          "reply_frame": 7077,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 16.492,
+          "interleaved_requests": [],
+          "level": 5,
+          "sleep": 2,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        }
+      ],
+      "capture": "usb-wireless-systemsettings-levels-1to5.pcapng"
+    },
+    {
+      "sha256": "a34c2d1907f04da00024bb38c4bba10adf205a86e232f0a6c3adcd548035d277",
+      "kind": "sleep",
+      "bus": 1,
+      "device": 4,
+      "total_successful_writes": 7,
+      "verified_action_replies": 5,
+      "transactions": [
+        {
+          "write_frame": 1296,
+          "completion_frame": 1297,
+          "write": "0710000001000000000000020000000000aa5500000000000000000000000019",
+          "reply_frame": 1306,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": false,
+          "reply_ms": 15.324,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 0,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 2172,
+          "completion_frame": 2173,
+          "write": "0710000001000000000000020000000000aa5500000000000000000000000019",
+          "reply_frame": 2182,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 17.943,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 0,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 3115,
+          "completion_frame": 3116,
+          "write": "0710000001000000000100020000000000aa550000000000000000000000001a",
+          "reply_frame": 3131,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 18.544,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 4011,
+          "completion_frame": 4012,
+          "write": "0710000001000000000200020000000000aa550000000000000000000000001b",
+          "reply_frame": 4021,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 16.336,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 2,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 5075,
+          "completion_frame": 5076,
+          "write": "0710000001000000000300020000000000aa550000000000000000000000001c",
+          "reply_frame": 5085,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 16.87,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 3,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        }
+      ],
+      "capture": "usb-wireless-systemsettings-sleeptime-offto30min.pcapng"
+    },
+    {
+      "sha256": "2e26bd15980d57c92258b13f0cb0e64187364cc77de4a76ebde64e411148bca7",
+      "kind": "locks",
+      "bus": 1,
+      "device": 4,
+      "total_successful_writes": 7,
+      "verified_action_replies": 6,
+      "transactions": [
+        {
+          "write_frame": 3213,
+          "completion_frame": 3214,
+          "write": "0710000001000001000100020000000000aa550000000000000000000000001b",
+          "reply_frame": 3225,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": false,
+          "reply_ms": 19.071,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": true,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 3827,
+          "completion_frame": 3828,
+          "write": "0710000001000101000100020000000000aa550000000000000000000000001c",
+          "reply_frame": 3837,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 16.735,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": true,
+          "disable_alt_f4": true,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 4467,
+          "completion_frame": 4468,
+          "write": "0710000001010101000100020000000000aa550000000000000000000000001d",
+          "reply_frame": 4477,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 16.912,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": true,
+          "disable_alt_f4": true,
+          "disable_alt_tab": true
+        },
+        {
+          "write_frame": 5213,
+          "completion_frame": 5214,
+          "write": "0710000001000101000100020000000000aa550000000000000000000000001c",
+          "reply_frame": 5223,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 19.683,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": true,
+          "disable_alt_f4": true,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 5553,
+          "completion_frame": 5556,
+          "write": "0710000001000001000100020000000000aa550000000000000000000000001b",
+          "reply_frame": 5565,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 18.976,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": true,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        },
+        {
+          "write_frame": 5957,
+          "completion_frame": 5958,
+          "write": "0710000001000000000100020000000000aa550000000000000000000000001a",
+          "reply_frame": 5969,
+          "reply": "0710000000000000000000000000000000000000000000000000000000000017",
+          "read_submission_captured": true,
+          "reply_ms": 18.928,
+          "interleaved_requests": [],
+          "level": 2,
+          "sleep": 1,
+          "disable_win": false,
+          "disable_alt_f4": false,
+          "disable_alt_tab": false
+        }
+      ],
+      "capture": "usb-wireless-systemsettings-sleeptime-disable-all.pcapng"
+    },
+    {
+      "sha256": "8175a9ddbcc5d7ad7887c2f26caf1860d926432232333da6ac9170783fae20ee",
+      "kind": "reset-keyboard",
+      "bus": 1,
+      "device": 4,
+      "total_successful_writes": 3,
+      "verified_action_replies": 1,
+      "transactions": [
+        {
+          "write_frame": 2057,
+          "completion_frame": 2058,
+          "write": "1f0000000000000000000000000000000000000000000000000000000000001f",
+          "reply_frame": 3808,
+          "reply": "1f0000000000000000000000000000000000000000000000000000000000001f",
+          "read_submission_captured": false,
+          "reply_ms": 1335.558,
+          "interleaved_requests": [
+            {
+              "frame": 2653,
+              "write": "2001000000000000000000000000000000000000000000000000000000000021",
+              "completion_frame": 2656,
+              "after_ms": 351.171
+            },
+            {
+              "frame": 3752,
+              "write": "2001000000000000000000000000000000000000000000000000000000000021",
+              "completion_frame": 3755,
+              "after_ms": 1271.78
+            }
+          ]
+        }
+      ],
+      "capture": "usb-wireless-systemsettings-resetkeyboard.pcapng"
+    },
+    {
+      "sha256": "c3f771131cec6096367b8762f2783303b33ba5e8b2481e84502864eb3d25dd77",
+      "kind": "factory-reset",
+      "bus": 1,
+      "device": 4,
+      "total_successful_writes": 2,
+      "verified_action_replies": 1,
+      "transactions": [
+        {
+          "write_frame": 2805,
+          "completion_frame": 2806,
+          "write": "0f0000000000000000000000000000000000000000000000000000000000000f",
+          "reply_frame": 2813,
+          "reply": "0f0000000000000000000000000000000000000000000000000000000000000f",
+          "read_submission_captured": false,
+          "reply_ms": 11.577,
+          "interleaved_requests": []
+        }
+      ],
+      "capture": "usb-wireless-systemsettings-factoryreset.pcapng"
+    }
+  ]
+}

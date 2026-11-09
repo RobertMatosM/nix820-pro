@@ -71,10 +71,27 @@ impl Canvas {
             r.center(),
             t,
             size,
-            if selected { INK } else { FG },
+            if !ui.is_enabled() {
+                MUTED
+            } else if selected {
+                INK
+            } else {
+                FG
+            },
             Align2::CENTER_CENTER,
         );
         response
+    }
+    pub(super) fn button_enabled(
+        &self,
+        ui: &mut Ui,
+        r: Rect,
+        label: &str,
+        size: f32,
+        enabled: bool,
+    ) -> Response {
+        ui.add_enabled_ui(enabled, |ui| self.button(ui, r, label, false, size))
+            .inner
     }
     pub(super) fn checkbox(&self, ui: &mut Ui, p: Pos2, label: &str, v: &mut bool) -> bool {
         let r = Rect::from_min_size(p, vec2(18., 18.));

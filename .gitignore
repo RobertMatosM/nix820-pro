@@ -1,8 +1,14 @@
 /target/
 /dist/
 /capture-output/
+# Private bus captures can contain unrelated input and machine metadata.
+/tests/wireshark/
 *.pcap
 *.pcapng
+*.cap
+*.pcap.*
+*.pcapng.*
+*.cap.*
 __pycache__/
 *.pyc
 /profiles.json

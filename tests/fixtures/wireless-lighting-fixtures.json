@@ -1,0 +1,457 @@
+{
+  "captures": [
+    {
+      "sha256": "d10e7e766647712900a430095ced272826b4f112b4c68612e354c1b53fb86585",
+      "bus": 1,
+      "device": 4,
+      "successful_writes": 22,
+      "matching_replies": 22,
+      "transactions": [
+        {
+          "write_frame": 3334,
+          "completion_frame": 3335,
+          "reply_frame": 3627,
+          "read_submission_captured": false,
+          "write": "05100001ff000000000000010503000000aa550000000000000000000000001d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 454.352
+        },
+        {
+          "write_frame": 4397,
+          "completion_frame": 4398,
+          "reply_frame": 4411,
+          "read_submission_captured": true,
+          "write": "05100002ff000000000000010503000000aa550000000000000000000000001e",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.08
+        },
+        {
+          "write_frame": 5075,
+          "completion_frame": 5076,
+          "reply_frame": 5091,
+          "read_submission_captured": true,
+          "write": "05100003ff000000000000010503000000aa550000000000000000000000001f",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 27.758
+        },
+        {
+          "write_frame": 5779,
+          "completion_frame": 5780,
+          "reply_frame": 5795,
+          "read_submission_captured": true,
+          "write": "05100004ff000000000000010503000000aa5500000000000000000000000020",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 27.513
+        },
+        {
+          "write_frame": 6451,
+          "completion_frame": 6452,
+          "reply_frame": 6465,
+          "read_submission_captured": true,
+          "write": "05100005ff000000000000010503000000aa5500000000000000000000000021",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.741
+        },
+        {
+          "write_frame": 7153,
+          "completion_frame": 7156,
+          "reply_frame": 7169,
+          "read_submission_captured": true,
+          "write": "05100006ff000000000000010503000000aa5500000000000000000000000022",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.057
+        },
+        {
+          "write_frame": 7847,
+          "completion_frame": 7848,
+          "reply_frame": 7861,
+          "read_submission_captured": true,
+          "write": "05100007ff000000000000010503000000aa5500000000000000000000000023",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.074
+        },
+        {
+          "write_frame": 8767,
+          "completion_frame": 8768,
+          "reply_frame": 8781,
+          "read_submission_captured": true,
+          "write": "05100008ff000000000000010503000000aa5500000000000000000000000024",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.573
+        },
+        {
+          "write_frame": 9411,
+          "completion_frame": 9412,
+          "reply_frame": 9425,
+          "read_submission_captured": true,
+          "write": "05100009ff000000000000010503000000aa5500000000000000000000000025",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.167
+        },
+        {
+          "write_frame": 10047,
+          "completion_frame": 10050,
+          "reply_frame": 10063,
+          "read_submission_captured": true,
+          "write": "0510000aff000000000000010503000000aa5500000000000000000000000026",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 26.027
+        },
+        {
+          "write_frame": 10701,
+          "completion_frame": 10702,
+          "reply_frame": 10715,
+          "read_submission_captured": true,
+          "write": "0510000bff000000000000010503000000aa5500000000000000000000000027",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 25.882
+        },
+        {
+          "write_frame": 11335,
+          "completion_frame": 11336,
+          "reply_frame": 11347,
+          "read_submission_captured": true,
+          "write": "0510000cff000000000000010503000000aa5500000000000000000000000028",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.777
+        },
+        {
+          "write_frame": 11995,
+          "completion_frame": 11996,
+          "reply_frame": 12007,
+          "read_submission_captured": true,
+          "write": "0510000dff000000000000010503000000aa5500000000000000000000000029",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.369
+        },
+        {
+          "write_frame": 12607,
+          "completion_frame": 12608,
+          "reply_frame": 12619,
+          "read_submission_captured": true,
+          "write": "0510000eff000000000000010503000000aa550000000000000000000000002a",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.42
+        },
+        {
+          "write_frame": 13275,
+          "completion_frame": 13276,
+          "reply_frame": 13289,
+          "read_submission_captured": true,
+          "write": "0510000fff000000000000010503000000aa550000000000000000000000002b",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.13
+        },
+        {
+          "write_frame": 13883,
+          "completion_frame": 13884,
+          "reply_frame": 13897,
+          "read_submission_captured": true,
+          "write": "05100010ff000000000000010503000000aa550000000000000000000000002c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.64
+        },
+        {
+          "write_frame": 14575,
+          "completion_frame": 14578,
+          "reply_frame": 14589,
+          "read_submission_captured": true,
+          "write": "05100011ff000000000000010503000000aa550000000000000000000000002d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.188
+        },
+        {
+          "write_frame": 15249,
+          "completion_frame": 15250,
+          "reply_frame": 15261,
+          "read_submission_captured": true,
+          "write": "05100012ff000000000000010503000000aa550000000000000000000000002e",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.268
+        },
+        {
+          "write_frame": 15885,
+          "completion_frame": 15886,
+          "reply_frame": 15903,
+          "read_submission_captured": true,
+          "write": "05100013ff000000000000010503000000aa550000000000000000000000002f",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.686
+        },
+        {
+          "write_frame": 16597,
+          "completion_frame": 16598,
+          "reply_frame": 16611,
+          "read_submission_captured": true,
+          "write": "0510000000000000000000000000000000aa5500000000000000000000000014",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.915
+        }
+      ],
+      "capture": "usb-wireless-light-modes.pcapng"
+    },
+    {
+      "sha256": "e8eaa46e7c859c6f6f4e27b19dc7fd45d05a50ac8fe73947b3fb771b167b44b7",
+      "bus": 1,
+      "device": 4,
+      "successful_writes": 25,
+      "matching_replies": 25,
+      "transactions": [
+        {
+          "write_frame": 3846,
+          "completion_frame": 3849,
+          "reply_frame": 3860,
+          "read_submission_captured": false,
+          "write": "05100001ff800000000000000403000000aa550000000000000000000000009b",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.907
+        },
+        {
+          "write_frame": 5779,
+          "completion_frame": 5780,
+          "reply_frame": 5793,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000000103000000aa5500000000000000000000000098",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.407
+        },
+        {
+          "write_frame": 6631,
+          "completion_frame": 6632,
+          "reply_frame": 6645,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000000503000000aa550000000000000000000000009c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.048
+        },
+        {
+          "write_frame": 7933,
+          "completion_frame": 7934,
+          "reply_frame": 7947,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000010503000000aa550000000000000000000000009d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 26.157
+        },
+        {
+          "write_frame": 9085,
+          "completion_frame": 9086,
+          "reply_frame": 9099,
+          "read_submission_captured": true,
+          "write": "05100001ff000000000000000503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 26.193
+        },
+        {
+          "write_frame": 9105,
+          "completion_frame": 9106,
+          "reply_frame": 9119,
+          "read_submission_captured": true,
+          "write": "05100001ff000000000000000503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.626
+        },
+        {
+          "write_frame": 11621,
+          "completion_frame": 11622,
+          "reply_frame": 11635,
+          "read_submission_captured": true,
+          "write": "05100001ff000000000000000503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.042
+        },
+        {
+          "write_frame": 13151,
+          "completion_frame": 13152,
+          "reply_frame": 13179,
+          "read_submission_captured": true,
+          "write": "05100001ffff0000000000000503000000aa550000000000000000000000001b",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.316
+        },
+        {
+          "write_frame": 14045,
+          "completion_frame": 14046,
+          "reply_frame": 14059,
+          "read_submission_captured": true,
+          "write": "05100001ff00ff00000000000503000000aa550000000000000000000000001b",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.934
+        },
+        {
+          "write_frame": 14749,
+          "completion_frame": 14750,
+          "reply_frame": 14761,
+          "read_submission_captured": true,
+          "write": "05100001ffffff00000000000503000000aa550000000000000000000000001a",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.451
+        },
+        {
+          "write_frame": 15261,
+          "completion_frame": 15262,
+          "reply_frame": 15275,
+          "read_submission_captured": true,
+          "write": "0510000100000000000000000503000000aa550000000000000000000000001d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.011
+        },
+        {
+          "write_frame": 16899,
+          "completion_frame": 16902,
+          "reply_frame": 16913,
+          "read_submission_captured": true,
+          "write": "0510000100ffff00000000000503000000aa550000000000000000000000001b",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.049
+        },
+        {
+          "write_frame": 18999,
+          "completion_frame": 19000,
+          "reply_frame": 19015,
+          "read_submission_captured": true,
+          "write": "0510000100ffff00000000010503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 25.921
+        },
+        {
+          "write_frame": 22471,
+          "completion_frame": 22472,
+          "reply_frame": 22487,
+          "read_submission_captured": true,
+          "write": "05100001ff000000000000000503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.742
+        },
+        {
+          "write_frame": 22495,
+          "completion_frame": 22496,
+          "reply_frame": 22519,
+          "read_submission_captured": true,
+          "write": "05100001ff000000000000000503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.411
+        },
+        {
+          "write_frame": 23783,
+          "completion_frame": 23784,
+          "reply_frame": 23797,
+          "read_submission_captured": true,
+          "write": "05100001ff000000000000000503000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.072
+        },
+        {
+          "write_frame": 24621,
+          "completion_frame": 24622,
+          "reply_frame": 24635,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000000503000000aa550000000000000000000000009c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.322
+        },
+        {
+          "write_frame": 28225,
+          "completion_frame": 28226,
+          "reply_frame": 28239,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000010503000000aa550000000000000000000000009d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.451
+        },
+        {
+          "write_frame": 30585,
+          "completion_frame": 30586,
+          "reply_frame": 30601,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000010303000000aa550000000000000000000000009b",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.144
+        },
+        {
+          "write_frame": 31187,
+          "completion_frame": 31188,
+          "reply_frame": 31201,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000010103000000aa5500000000000000000000000099",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 21.876
+        },
+        {
+          "write_frame": 32121,
+          "completion_frame": 32124,
+          "reply_frame": 32159,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000010103000000aa5500000000000000000000000099",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 21.661
+        },
+        {
+          "write_frame": 33229,
+          "completion_frame": 33230,
+          "reply_frame": 33257,
+          "read_submission_captured": true,
+          "write": "05100001ff800000000000010503000000aa550000000000000000000000009d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.519
+        }
+      ],
+      "capture": "usb-wireless-static-rgb-colorful-rgb-brightness.pcapng"
+    },
+    {
+      "sha256": "8324dbfa58d6e319912553e9ab682e31b96e994b9bbdb724a1077a368cec770d",
+      "bus": 1,
+      "device": 4,
+      "successful_writes": 5,
+      "matching_replies": 5,
+      "transactions": [
+        {
+          "write_frame": 2744,
+          "completion_frame": 2745,
+          "reply_frame": 2768,
+          "read_submission_captured": false,
+          "write": "05100002ff000000000000010501000000aa550000000000000000000000001c",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 22.645
+        },
+        {
+          "write_frame": 3961,
+          "completion_frame": 3962,
+          "reply_frame": 3975,
+          "read_submission_captured": true,
+          "write": "05100002ff000000000000010502000000aa550000000000000000000000001d",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 24.763
+        },
+        {
+          "write_frame": 4605,
+          "completion_frame": 4606,
+          "reply_frame": 4619,
+          "read_submission_captured": true,
+          "write": "05100002ff000000000000010503000000aa550000000000000000000000001e",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 21.709
+        },
+        {
+          "write_frame": 5519,
+          "completion_frame": 5520,
+          "reply_frame": 5531,
+          "read_submission_captured": true,
+          "write": "05100002ff000000000000010504000000aa550000000000000000000000001f",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.831
+        },
+        {
+          "write_frame": 6113,
+          "completion_frame": 6114,
+          "reply_frame": 6127,
+          "read_submission_captured": true,
+          "write": "05100002ff000000000000010505000000aa5500000000000000000000000020",
+          "reply": "0510000000000000000000000000000000000000000000000000000000000015",
+          "reply_ms": 23.719
+        }
+      ],
+      "capture": "usb-wireless-singleon-light-speed.pcapng"
+    }
+  ]
+}

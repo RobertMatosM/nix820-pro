@@ -12,5 +12,85 @@
   "original_workspace": "Prototype code and private data retained",
   "license": "0BSD for original project; third-party notices separate",
   "project": "Nix820 Pro",
-  "saved_data": "Malformed/unreadable saved files stop startup without overwriting originals. Regression tests cover corrupted profiles, presets and legacy files; concurrent saves publish complete JSON with private staging files and no staging-file leaks."
+  "saved_data": "Malformed/unreadable saved files stop startup without overwriting originals. Regression tests cover corrupted profiles, presets and legacy files; concurrent saves publish complete JSON with private staging files and no staging-file leaks.",
+  "wireless_lighting": {
+    "branch": "dev",
+    "rust_tests": 61,
+    "python_tests": 23,
+    "capture_pairs": 47,
+    "captures": 3,
+    "checks": "Formatting, full Rust/Python suites and strict Clippy passed.",
+    "coverage": "All 20 modes and speeds 1\u20135; captured RGB/colorful/brightness fields; malformed replies, I/O failures, stale input, timeout, disconnect, exact discovery identity and unsupported-action blocking.",
+    "hardware": "Operator tested wireless lighting and reported it working. No physical USB writes by the agent during implementation or analysis; exhaustive settings, receiver-off behavior and persistence remain unverified.",
+    "baseline": "Top-level packaging and GUI metrics describe the earlier wired release-preparation baseline.",
+    "release_build": "passed; cargo build --release --locked",
+    "binary_bytes": 10696800,
+    "native_gui": "Updated lighting page rendered and visually checked in screenshot mode; no user data or device discovery."
+  },
+  "wireless_remap_analysis": {
+    "python_tests": 26,
+    "successful_writes": 4,
+    "matching_remap_replies": 3,
+    "top_restore": "Operator confirmed A returned to normal with no driver error. Successful USB write captured; matching remap acknowledgement absent.",
+    "fn": "I to Insert and original I restoration both have matching protocol replies.",
+    "runtime": "Selected-key remapping is implemented on dev; receiver full-layer table/default jobs remain blocked.",
+    "tft": "Kept wired-only; operator reports the original driver appears to intentionally omit wireless TFT support."
+  },
+  "wireless_settings_analysis": {
+    "python_tests": 29,
+    "captures": 5,
+    "acknowledged_settings_actions": 16,
+    "acknowledged_reset_actions": 2,
+    "settings": "Response levels 1\u20135, sleep 0\u20133, all three shortcut locks on/off. All request/reply checksums and USB write completions validated.",
+    "reset_keyboard": "1f request acknowledged after 1335.558 ms, crossing two 20 01 00 requests; their role remains unproven.",
+    "factory_reset": "0f request acknowledged after 11.577 ms.",
+    "runtime": "Implemented on dev; operator tested wireless settings and resets and confirmed they work."
+  },
+  "wireless_settings_implementation": {
+    "rust_tests": 68,
+    "python_tests": 29,
+    "capture_actions": 18,
+    "checks": "Formatting, full Rust/Python suites and strict Clippy passed.",
+    "reset_keyboard": "One reset request followed by the two captured queries at ~351/1272 ms; one input clear before the transaction, no automatic retries, query replies do not extend the two-second reply deadline.",
+    "coverage": "All 18 settings/reset capture actions, early/late reset replies, interleaved queries, fixed deadline, malformed payloads/replies, write-stage failures, timeouts/disconnects, device capability guard and UI confirmation/availability.",
+    "release_build": "passed; cargo build --release --locked",
+    "binary_bytes": 10698360,
+    "native_gui": "Updated Device page rendered and visually checked in screenshot mode.",
+    "hardware": "Operator tested receiver settings and resets and confirmed they work. No physical USB writes or resets by the agent during implementation/tests. Exhaustive combinations and reset side effects remain unverified."
+  },
+  "wireless_remap_followup": {
+    "python_tests": 31,
+    "successful_remap_writes": 6,
+    "matching_remap_replies": 3,
+    "top": "Left Ctrl, Calculator and original A match wired records/checksums, with successful USB writes. No receiver input anywhere in this capture. Operator did not physically test the key.",
+    "fn": "I to Insert, B, original I: three captured matching acknowledgements, at 24.057/238.164/23.960 ms. Physical before/after Default behavior is unknown.",
+    "background": "Four host-issued 20 01 00 queries per capture; four corresponding-format replies in Fn, none in Top. Purpose unknown; not proven necessary as a general handshake.",
+    "remaining": "Selected-key assignments are implemented. Media/modifier physical acceptance and factory Fn default restoration remain unverified; whole-layer operations remain wired-only."
+  },
+  "wireless_remap_implementation": {
+    "rust_tests": 78,
+    "python_tests": 31,
+    "capture_writes": 10,
+    "actual_capture_acknowledgements": 6,
+    "checks": "Formatting, full Rust/Python suites and strict Clippy passed.",
+    "behavior": "Apply selected key sends one Base/Fn destination. Base Restore prepares its original action. Fn Use normal key saves an explicit printed-key assignment; unset Fn defaults and whole-layer defaults cannot be sent over the receiver.",
+    "coverage": "Ten exact requests, six actual replies, four acknowledgement gaps; layer/source/record validation, physical-key aliases, scoped profile resolution, UI routing/restoration, background interleaving, fixed deadline/count bound, malformed replies and I/O failures without retry.",
+    "release_build": "passed; cargo build --release --locked",
+    "binary_bytes": 10721416,
+    "native_gui": "Keymap page rendered and visually checked in screenshot mode. Receiver controls and connection-specific behavior covered by headless UI tests.",
+    "hardware": "Operator tested wireless Top/Base and Fn remapping and reported both working. Exact key/destination combinations were not specified. No physical USB remaps by the agent during implementation/tests; exhaustive combinations and factory Fn restoration remain unverified."
+  },
+  "wired_regression_feedback": {
+    "operator_report": "Quick wired test after wireless changes: wired operation working fine.",
+    "scope": "Exact features exercised were not enumerated; no exhaustive hardware coverage inferred."
+  },
+  "publication_privacy_review": {
+    "candidate_files": 94,
+    "raw_capture_candidates": 0,
+    "raw_capture_history_paths": 0,
+    "local_capture_files_ignored": 12,
+    "ignore_rules": "Entire tests/wireshark directory plus pcap/pcapng/cap and compressed variants; existing build, screenshots, generated extraction output and personal root settings remain ignored.",
+    "personal_data": "No personal profiles/presets, credentials or machine-specific user paths found in publication candidates. Third-party license attribution retained.",
+    "fixtures": "Only scoped configuration reports, protocol replies, hashes and experiment metadata; no bus capture files or unrelated raw input traffic."
+  }
 }

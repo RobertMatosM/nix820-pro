@@ -1,21 +1,27 @@
 # Nix820 Pro
 
-Independent AK820 Pro configurator for Linux, using wired USB. Written in Rust with egui/eframe. Not affiliated with or endorsed by AJAZZ; AJAZZ and AK820 Pro identify the supported keyboard.
+Independent AK820 Pro configurator for Linux, with wired USB and experimental 2.4 GHz support. Written in Rust with egui/eframe. Not affiliated with or endorsed by AJAZZ; AJAZZ and AK820 Pro identify the supported keyboard.
 
 Nix820 Pro has its own flat keyboard illustration, Starry Grey charcoal/gray/yellow interface, text navigation and searchable action picker. It works on Linux generally and does not require Nix or NixOS. It contains no manufacturer screenshots, logos or cropped product artwork.
 
 ## Supported features
 
-- **Keymap:** Base and Fn layers, separate saved profiles, keyboard/modifier/media/browser destinations, per-key restoration and whole-layer defaults.
-- **Lighting:** built-in effects, RGB/colorful mode, brightness and speed.
-- **Display:** images, GIF animation and clock sync. Uploads use the keyboard's 128×128 format; the local editor is 160×128 and fits its content on upload.
-- **Device:** five response levels, sleep time, shortcut locks, Reset Keyboard and Factory Reset.
+- **Keymap:** Base and Fn layers, separate saved profiles and keyboard/modifier/media/browser destinations. Wired USB applies full layers; 2.4 GHz applies one selected key. Whole-layer defaults and factory Fn restoration require wired USB.
+- **Lighting:** built-in effects, RGB/colorful mode, brightness and speed over wired USB or the 2.4 GHz receiver.
+- **Display (wired USB only):** images, GIF animation and clock sync. Uploads use the keyboard's 128×128 format; the local editor is 160×128 and fits its content on upload.
+- **Device:** five response levels, sleep time, shortcut locks, Reset Keyboard and Factory Reset over wired USB or the 2.4 GHz receiver.
 
-Connect by wired USB. The app can save and edit profiles while disconnected. Changes reach the keyboard only through explicit Apply, Upload, Time Sync or a confirmed reset. Applying a keymap replaces the selected layer's complete override table; existing keyboard overrides are not read or merged. The editor shows saved local values, not live device readback.
+Connect by wired USB for all features, or use the 2.4 GHz receiver for selected-key remapping, lighting, device settings and resets. Choose the connection in the Connection panel. Resets ask for confirmation. Whole-layer keymap transfers/defaults, display transfers and clock sync require wired USB. The app can save and edit profiles while disconnected. Changes reach the keyboard only through explicit Apply, Upload, Time Sync or a confirmed reset. Wired Apply layer replaces the selected layer's complete override table; existing keyboard overrides are not read or merged. Wireless Apply selected key updates only that source key. The editor shows saved local values, not live device readback.
 
-Fn reserves Esc, Backspace, Home, Win, Fn and Backslash/Pipe. The physical Fn source cannot be remapped on either layer. Wireless configuration, macros, custom per-key lighting, audio-driven effects and automatic startup are not implemented. Inactive editors from the prototype are excluded from the app, and their legacy saved data is preserved on import/migration.
+For wireless remapping, open Keymap, choose Base or Fn, select a physical key and destination, then click **Apply selected key**. Edits remain local until Apply. On Base, **Restore key** prepares the original printed key. On Fn, **Use normal key** prepares an explicit printed-key assignment (for example, Fn+I → I); it does not restore a factory Fn shortcut. An unset Fn default cannot be sent wirelessly. The Default layer buttons are disabled for a receiver.
+
+Fn reserves Esc, Backspace, Home, Win, Fn and Backslash/Pipe. The physical Fn source cannot be remapped on either layer. Bluetooth configuration, macros, custom per-key lighting, audio-driven effects and automatic startup are not implemented. Inactive editors from the prototype are excluded from the app, and their legacy saved data is preserved on import/migration.
 
 The operator reports working lighting/display, Base/Fn/media remapping and the reset/settings UI. Regression tests validate recorded configuration traffic, acknowledgement handling and processing gaps. That does not establish every physical combination or power-cycle persistence; see [protocol notes](docs/protocol.md).
+
+After the wireless changes, the operator performed a quick wired test and reported that wired operation still works. The exact features exercised in that quick test were not enumerated.
+
+Receiver lighting reproduces 47 request/reply pairs from three captures, and the operator has tested it and reported it working. Receiver settings/reset encoding reproduces another 18 actions from five captures; the operator has also tested these implementations and confirmed they work. Reset Keyboard includes two captured follow-up queries and can take a few seconds. Reset failures report an unconfirmed outcome and are never retried automatically. The operator also tested wireless Base/Top and Fn remapping and reported both working; the exact tested key/destination combinations were not specified. Its source positions reuse the wired layout, independently matched at A and I. A receiver acknowledgement alone does not establish that the keyboard is awake, in range or displaying the intended result. TFT transfers remain wired-only, consistent with the operator's observation of the original driver's wireless limitations. See the [wireless investigation](docs/wireless-investigation.md) for evidence and limits.
 
 ## Build and run
 
@@ -66,6 +72,8 @@ This command validates available files and exits without opening the GUI or send
 - `packaging/`, `scripts/`: desktop integration, checks, release packaging and optional project relocation.
 
 Keep original USB captures private unless they have been reviewed for unrelated keyboard/input traffic. Fixture data is evidence for interoperability, not vendor assets or application code.
+
+The entire `tests/wireshark/` folder is ignored, along with raw `.pcap`, `.pcapng`, `.cap` files and their compressed variants. Captures remain local; only reviewed configuration fixtures belong in Git.
 
 ## CLI and screenshots
 

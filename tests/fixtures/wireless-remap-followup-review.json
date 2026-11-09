@@ -1,0 +1,187 @@
+{
+  "captures": [
+    {
+      "sha256": "a6ef9499f5ad15361d61b98caf9cf142f85f6335bca92958778cd8b1bb74fc42",
+      "bus": 1,
+      "device": 4,
+      "layer": "Top",
+      "sequence": "followup",
+      "source": "A",
+      "source_slot": 56,
+      "transactions": [
+        {
+          "action": "remap",
+          "write_frame": 4697,
+          "completion_frame": 4700,
+          "write": "0304380201000000000000000000000000000000000000000000000000000042",
+          "record": "02010000",
+          "acknowledged": false,
+          "reply_frame": null,
+          "reply": null,
+          "reply_ms": null,
+          "unrelated_inputs": []
+        },
+        {
+          "action": "remap",
+          "write_frame": 7429,
+          "completion_frame": 7430,
+          "write": "03043803920100000000000000000000000000000000000000000000000000d5",
+          "record": "03920100",
+          "acknowledged": false,
+          "reply_frame": null,
+          "reply": null,
+          "reply_ms": null,
+          "unrelated_inputs": []
+        },
+        {
+          "action": "restore_original_key",
+          "write_frame": 12823,
+          "completion_frame": 12824,
+          "write": "0304380200040000000000000000000000000000000000000000000000000045",
+          "record": "02000400",
+          "acknowledged": false,
+          "reply_frame": null,
+          "reply": null,
+          "reply_ms": null,
+          "unrelated_inputs": []
+        }
+      ],
+      "verified_replies": 0,
+      "capture": "usb-wireless-remap-top-layer-atolctrltocalculatortodefault.pcapng",
+      "background_queries": [
+        {
+          "frame": 3181,
+          "time": 3.615212,
+          "header": "200100"
+        },
+        {
+          "frame": 6197,
+          "time": 9.247118,
+          "header": "200100"
+        },
+        {
+          "frame": 7021,
+          "time": 9.915305,
+          "header": "200100"
+        },
+        {
+          "frame": 12961,
+          "time": 18.619519,
+          "header": "200100"
+        }
+      ],
+      "background_query_inputs": [],
+      "physical_output_verified": false,
+      "operator_feedback": "Physical key outcomes were not tested."
+    },
+    {
+      "sha256": "89874ff8603b55e2150b3cedc4025f410b41a8df4b88d31c20265135460d8db2",
+      "bus": 1,
+      "device": 4,
+      "layer": "Fn",
+      "sequence": "followup",
+      "source": "I",
+      "source_slot": 45,
+      "transactions": [
+        {
+          "action": "remap",
+          "write_frame": 2477,
+          "completion_frame": 2478,
+          "write": "0d042d0200490000000000000000000000000000000000000000000000000089",
+          "record": "02004900",
+          "acknowledged": true,
+          "reply_frame": 2491,
+          "reply": "0d042d000000000000000000000000000000000000000000000000000000003e",
+          "reply_ms": 24.057,
+          "unrelated_inputs": []
+        },
+        {
+          "action": "remap",
+          "write_frame": 8297,
+          "completion_frame": 8300,
+          "write": "0d042d0200050000000000000000000000000000000000000000000000000045",
+          "record": "02000500",
+          "acknowledged": true,
+          "reply_frame": 8423,
+          "reply": "0d042d000000000000000000000000000000000000000000000000000000003e",
+          "reply_ms": 238.164,
+          "unrelated_inputs": [
+            {
+              "frame": 9253,
+              "header": "200100"
+            }
+          ]
+        },
+        {
+          "action": "restore_original_key",
+          "write_frame": 12939,
+          "completion_frame": 12940,
+          "write": "0d042d02000c000000000000000000000000000000000000000000000000004c",
+          "record": "02000c00",
+          "acknowledged": true,
+          "reply_frame": 12955,
+          "reply": "0d042d000000000000000000000000000000000000000000000000000000003e",
+          "reply_ms": 23.96,
+          "unrelated_inputs": [
+            {
+              "frame": 15315,
+              "header": "200100"
+            }
+          ]
+        }
+      ],
+      "verified_replies": 3,
+      "capture": "usb-wireless-remap-fn-layer-itoinserttobtodefault.pcapng",
+      "background_queries": [
+        {
+          "frame": 1124,
+          "time": 0.711239,
+          "header": "200100"
+        },
+        {
+          "frame": 1544,
+          "time": 1.535218,
+          "header": "200100"
+        },
+        {
+          "frame": 9245,
+          "time": 9.322718,
+          "header": "200100"
+        },
+        {
+          "frame": 15305,
+          "time": 15.746167,
+          "header": "200100"
+        }
+      ],
+      "background_query_inputs": [
+        {
+          "frame": 2385,
+          "time": 2.354912,
+          "header": "200100",
+          "body_byte_3": 255
+        },
+        {
+          "frame": 2387,
+          "time": 2.355871,
+          "header": "200100",
+          "body_byte_3": 255
+        },
+        {
+          "frame": 9253,
+          "time": 9.336249,
+          "header": "200100",
+          "body_byte_3": 255
+        },
+        {
+          "frame": 15315,
+          "time": 15.759667,
+          "header": "200100",
+          "body_byte_3": 255
+        }
+      ],
+      "physical_output_verified": false,
+      "operator_feedback": "Fn+I behavior before the experiment and after Default is not known by the operator."
+    }
+  ]
+}
