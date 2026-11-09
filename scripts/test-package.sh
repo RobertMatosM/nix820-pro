@@ -19,6 +19,11 @@ desktop-file-validate "$desktop_file"
 # Launch --help through the real GLib desktop parser, without opening the GUI.
 sed '/^Exec=/s/$/ --help/' "$desktop_file" > "$test_root/help.desktop"
 gio launch "$test_root/help.desktop" > "$test_root/desktop-help.txt"
+# GLib returns after starting the child; wait briefly for --help to produce output.
+for ((launch_attempt=0; launch_attempt<50; launch_attempt++)); do
+    if grep -q 'Nix820 Pro' "$test_root/desktop-help.txt"; then break; fi
+    sleep 0.1
+done
 grep -q 'Nix820 Pro' "$test_root/desktop-help.txt"
 # Uninstall must leave user content in the app's data directory untouched.
 printf '%s\n' 'private preset sentinel' > "$test_prefix/share/nix820-pro/screen-presets.json"
