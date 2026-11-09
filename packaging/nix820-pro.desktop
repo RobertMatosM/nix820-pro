@@ -5,6 +5,6 @@ Comment=Independent AK820 Pro configurator for Linux
 Exec=nix820-pro
 Icon=nix820-pro
 Terminal=false
-Categories=Utility;Settings;
+Categories=Settings;HardwareSettings;
 Keywords=keyboard;AK820;lighting;keymap;
 StartupNotify=true

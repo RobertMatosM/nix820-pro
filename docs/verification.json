@@ -92,5 +92,16 @@
     "ignore_rules": "Entire tests/wireshark directory plus pcap/pcapng/cap and compressed variants; existing build, screenshots, generated extraction output and personal root settings remain ignored.",
     "personal_data": "No personal profiles/presets, credentials or machine-specific user paths found in publication candidates. Third-party license attribution retained.",
     "fixtures": "Only scoped configuration reports, protocol replies, hashes and experiment metadata; no bus capture files or unrelated raw input traffic."
+  },
+  "prerelease_preparation": {
+    "version": "0.1.0-alpha.1",
+    "rust_tests": 78,
+    "python_tests": 33,
+    "checks": "Formatting, Rust tests, strict Clippy, capture-validator tests, package guard tests, ShellCheck, desktop-file validation and udev rule verification passed locally.",
+    "installation": "Archive installed into a fresh temporary prefix with spaces and shell-special characters; real GLib desktop --help launch passed. Uninstall preserved a saved-data sentinel. HOME was not changed and no user/system installation was performed.",
+    "archive": "15 allowlisted files plus directories; SHA256 verified; links/devices/private files rejected; numeric owner/group and timestamps normalized.",
+    "screenshots": "Keymap and Lighting regenerated from deterministic defaults and visually reviewed; no user data or device discovery.",
+    "privacy": "104 source candidates reviewed; no private user paths, credentials or raw captures found. Third-party attribution retained.",
+    "builds": "Local validation build on CachyOS; published binary is built and tested separately by Ubuntu 24.04 x86_64 CI, with BUILDINFO.txt in the archive."
   }
 }
