@@ -1,9 +1,9 @@
 [package]
 name = "nix820-pro"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 edition = "2024"
 license = "0BSD"
-description = "Independent wired-USB AK820 Pro configurator for Linux"
+description = "Independent AK820 Pro configurator for Linux with USB and 2.4 GHz support"
 readme = "README.md"
 publish = false
 

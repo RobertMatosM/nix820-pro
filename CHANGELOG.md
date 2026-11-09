@@ -1,12 +1,13 @@
 # Changelog
 
-## 0.1.0 — Unreleased
+## 0.1.0-alpha.1 — 2026-11-09
+
+- First public prerelease, built on Ubuntu 24.04 x86_64 in CI, with checked archives/checksums and tagged prerelease publication.
+- User installer/uninstaller with absolute desktop launch paths, scoped HID access rules, end-user installation guide and screenshots.
 
 - Experimental 2.4 GHz selected-key remapping on Base/Fn layers, including keyboard/modifier/media/browser destinations. Base restoration sends the original key; Fn Use normal key assigns the printed key explicitly. Whole-layer defaults and factory Fn restoration remain wired-only.
 - Remap reply handling skips exact observed background messages under a fixed deadline, with no automatic retries or success inferred from USB write completion alone.
-
 - Experimental 2.4 GHz device settings and both resets, with 18 captured action comparisons, delayed Reset Keyboard queries, transaction-scoped input clearing and bounded reply handling.
-
 - Experimental 2.4 GHz receiver lighting: all twenty modes, RGB/colorful, brightness and speed, with capture-backed encoding, reply validation and a bounded timeout.
 - Connection-aware transfer controls block unsupported receiver actions; offline editing and exports remain available. Screenshot mode skips host-device discovery.
 - Renamed application, Cargo package/binary, desktop integration and release archives to Nix820 Pro (`nix820-pro`).

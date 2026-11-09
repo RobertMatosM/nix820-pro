@@ -1,0 +1,4 @@
+# Allow the active local desktop user to configure the supported keyboard/receiver.
+# Keep this before systemd's 73-seat-late.rules so uaccess can assign the ACL.
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="8009", TAG+="uaccess"
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="fdfd", TAG+="uaccess"

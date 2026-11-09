@@ -1229,7 +1229,7 @@ dependencies = [
 
 [[package]]
 name = "nix820-pro"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "eframe",
  "image",
